@@ -1,11 +1,11 @@
 import * as mongodb from "mongodb";
-import { Product } from "./product";
+import { Product } from "./products/product";
 
 export const collections: {
     products?: mongodb.Collection<Product>;
 } = {};
 
-export async function connectToDatabaseToProduct(uri: string) {
+export async function connectToDatabase(uri: string) {
     const client = new mongodb.MongoClient(uri);
 
     try {
@@ -26,7 +26,7 @@ export async function connectToDatabaseToProduct(uri: string) {
 
 
 async function applySchemaValidation(db: mongodb.Db) {
-    const jsonSchema = {
+    const productJsonSchema = {
         $jsonSchema: {
             bsonType: "object",
             required: ["name", "desc", "price"],
@@ -88,11 +88,11 @@ async function applySchemaValidation(db: mongodb.Db) {
     };
 
     await db.command ({
-        collMod: "products",
-        validator: jsonSchema
+        collMod: "product",
+        validator: productJsonSchema
     }).catch(async (error: mongodb.MongoServerError) => {
         if (error.codeName === "NamespaceNotFound") {
-            await db.createCollection("product"), {validator: jsonSchema}};
+            await db.createCollection("product"), {validator: productJsonSchema}};
         })
 };
 
