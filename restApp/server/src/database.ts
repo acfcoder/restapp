@@ -52,7 +52,7 @@ async function applySchemaValidation(db: mongodb.Db) {
                     description: "The price of the product is required",
                 }, 
                 category: {
-                    bsonType: "string",
+                    bsonType: "number",
                     description: "Show the category of the product"
                 },
                 img: {

@@ -2,6 +2,7 @@ import * as dotenv from "dotenv";
 import express from "express";
 import cors from "cors";
 import { connectToDatabase } from "./database";
+import { productRouter } from "./products/product.routes";
 
 dotenv.config();
 
@@ -19,6 +20,7 @@ connectToDatabase(ATLAS_URI)
         app.use(cors());
 
     // start the Express server
+        app.use("/products", productRouter )
         app.listen(5300, () => {
             console.log(`Server running at http://localhost:5300...`);
         });
