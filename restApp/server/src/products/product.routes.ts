@@ -3,15 +3,17 @@
     import { collections } from "../database";
     import multer from "multer";
     import path from "path";
+    import fs from "fs";
 
 
     const MIMETYPES = ['image/jpg', 'image/png', 'image/jpeg'];
+    const uploadFolder = __dirname + '/uploads/';
 
     // Improving MULTER
     const fileUploads = multer({
         storage: multer.diskStorage({
             destination: (req, file, cb) => {
-                cb(null, __dirname + '/uploads/')
+                cb(null, uploadFolder)
             },
             filename: (req, file, cb) => {
                 const fileExt =  path.extname(file.originalname);
@@ -80,20 +82,31 @@
         }        
     });
 
-    productRouter.put("/upload/:id", fileUploads.single('file'), async(req, res) => {
+    productRouterAdmin.put("/upload/:id", fileUploads.single('file'), async(req, res) => {
         try {
             const id = req?.params?.id;
             const item = req.body;
+
+            const query = {_id: new ObjectId(id)};
+            const product = await collections.products?.findOne(query); 
 
             if (req.file) {
                 req.body.img = req.file.filename;
             }
 
-            const query = {_id: new ObjectId(id)};
             const result = await collections?.products?.updateOne(query, {$set: item});
 
             if (result && result.matchedCount) {
+                try {
+                    if (product?.img !== ''){
+                        fs.unlinkSync(uploadFolder + product?.img);
+                    };          
+                } catch (error) {
+                    console.log(`Problem to delete the image ${product?.img}. Please, confirm if exists.`);
+                }
+
                 res.status(201).send(`Image uploaded successfully in the product ID: ${id}`);
+
             } else if (!result?.matchedCount) {
                 res.status(404).send(`Failed to find a product: ID: ${id}`);
             } else {
@@ -103,7 +116,6 @@
             res.status(400).send('Error uploading file');
         }
     });
-
 
     productRouterAdmin.put("/:id", async (req, res) => {
         try {
@@ -129,10 +141,21 @@
         try {
             const id = req?.params?.id;
             const query = { _id: new ObjectId(id) };
+            const product = await collections.products?.findOne(query);
+ 
             const result = await collections?.products?.deleteOne(query);
 
             if (result && result.deletedCount) {
+            // Delete the image     
+                try {
+                    if (product?.img !== ''){
+                        fs.unlinkSync(uploadFolder + product?.img);
+                    };   
+                } catch (error) {
+                    console.log(`Problem to delete the image ${product?.img}. Please, confirm if exists.`);
+                }
                 res.status(201).send(`Delete a product: ID ${id}.`);
+                
             } else if  (!result) {
                 res.status(400).send(`Failed to remove a product: ID ${id}`);
             } else if ( !result.deletedCount) {
