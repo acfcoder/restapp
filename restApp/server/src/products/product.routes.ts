@@ -3,7 +3,9 @@ import { ObjectId } from "mongodb";
 import { collections } from "../database";
 
 export const productRouter = express.Router();
+export const productRouterAdmin = express.Router();
 productRouter.use(express.json());
+productRouterAdmin.use(express.json())
 
 productRouter.get("/", async (_req, res) => {
     try {
@@ -32,11 +34,11 @@ productRouter.get("/:id", async (req, res) => {
     }
 });
 
-productRouter.post("/", async (req, res) => {
+productRouterAdmin.post("/", async (req, res) => {
     try {
         const product = req.body;
         const result = await collections?.products?.insertOne(product);
-        
+
         if (result?.acknowledged) {
             res.status(201).send(`Created a new product: ID ${result.insertedId}.`);
         } else {
@@ -48,7 +50,7 @@ productRouter.post("/", async (req, res) => {
     }        
 });
 
-productRouter.put("/:id", async (req, res) => {
+productRouterAdmin.put("/:id", async (req, res) => {
     try {
         const id = req?.params?.id;
         const product = req.body;
@@ -68,7 +70,7 @@ productRouter.put("/:id", async (req, res) => {
     }
 })
 
-productRouter.delete("/:id", async (req, res) => {
+productRouterAdmin.delete("/:id", async (req, res) => {
     try {
         const id = req?.params?.id;
         const query = { _id: new ObjectId(id) };
