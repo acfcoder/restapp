@@ -15,7 +15,7 @@ export class ProductService {
   constructor(private httpClient: HttpClient) { }
 
   private refreshProducts() {
-    this.httpClient.get<Product[]>(`${this.url}/menu`)
+    this.httpClient.get<Product[]>(`${this.url}/products`)
     .subscribe(products => {
       this.products$.set(products)
     });
@@ -27,7 +27,7 @@ export class ProductService {
   }
 
   getProduct(id: string) {
-    this.httpClient.get<Product>(`${this.url}/menu/${id}`)
+    this.httpClient.get<Product>(`${this.url}/products/${id}`)
     .subscribe(product => {
       this.product$.set(product)
       return this.product$()
@@ -43,7 +43,7 @@ export class ProductService {
   }
 
   deleteProduct(id: string){
-    return this.httpClient.delete(`${this.url}/admin/products/4{id}`, {responseType: 'text'});
+    return this.httpClient.delete(`${this.url}/admin/products/${id}`, {responseType: 'text'});
   }
 
 }

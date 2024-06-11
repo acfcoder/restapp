@@ -13,6 +13,6 @@ export interface Product {
     excl: number; // percentage of exclusivity
     allergens: number[];
     tags: string[];
-    _id_?: mongodb.ObjectId;
+    _id?: mongodb.ObjectId;
 
 }

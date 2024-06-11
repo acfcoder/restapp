@@ -11,5 +11,5 @@ export interface Product {
     excl: number; // percentage of exclusivity
     allergens: number[];
     tags: string[];
-    _id_?: string;
+    _id?: string;
 }

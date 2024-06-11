@@ -4,6 +4,7 @@ import cors from "cors";
 import { connectToDatabase } from "./database";
 import { productRouter } from "./products/product.routes";
 import { productRouterAdmin } from "./products/product.routes";
+import path from "path";
 
 dotenv.config();
 
@@ -19,6 +20,7 @@ connectToDatabase(ATLAS_URI)
     .then(() => {
         const app = express();
         app.use(cors());
+        app.use(express.static(path.join(__dirname)));
 
     // start the Express server
         app.use("/products", productRouter );
