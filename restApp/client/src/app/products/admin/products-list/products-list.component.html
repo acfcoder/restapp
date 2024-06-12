@@ -4,7 +4,7 @@
     @for(product of products$(); track product.pos) {
         <div class="container p-2 m-2 border">
             <div class="row">
-                <span class="text-end">ID: {{ product._id }}</span>
+               
             </div>
             <div class="row">
                 <div class="col-sm-12 col-md-4">
@@ -25,11 +25,11 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm-4 col-md-2">
+                <div class="col-sm-4 col-md-1">
                     <div class="label">Precio</div>
                     <div class="content  text-end">{{ product.price }}</div>
                 </div>
-                <div class="col-sm-4 col-md-2">
+                <div class="col-sm-4 col-md-1">
                     <div class="label">Posicion</div>
                     <div class="content  text-end">{{ product.pos }}</div>
                 </div>
@@ -46,14 +46,18 @@
                         </mat-radio-group>    
                     </div>    
                 </div>
-                <div class="col-sm-4 col-md-2">
+                <div class="col-sm-4 col-md-1">
                     <div class="label">Categoria</div>
                     <div class="content  text-end">{{ product.category }}</div>
                 </div>
-                <div class="col-sm-4 col-md-2">
+                <div class="col-sm-4 col-md-1">
                     <div class="label">Alergenos</div>
                     <div class="content  text-end">{{ product.category }}</div>
                 </div>
+                <div class="col-sm-4 col-md-2">
+                    <span>{{ product._id }}</span>
+                </div>
+                
                 <div class="buttons-group col-2">
                     <button  mat-icon-button  [routerLink]="['edit/',  product._id]"> <mat-icon>edit</mat-icon></button>
                     <button  mat-icon-button  (click)="deleteProduct(product._id || '')"> <mat-icon>delete</mat-icon></button>
