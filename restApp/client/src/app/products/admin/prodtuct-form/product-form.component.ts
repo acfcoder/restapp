@@ -5,6 +5,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatButtonModule } from '@angular/material/button';
 import { Product } from "../../product";
+import { CommonModule } from "@angular/common";
 
 @Component({
     selector: 'app-product-form',
@@ -14,7 +15,8 @@ import { Product } from "../../product";
         MatFormFieldModule,
         MatInputModule,
         MatRadioModule,
-        MatButtonModule
+        MatButtonModule,
+        CommonModule
     ],
     styles:``,
     templateUrl: 'product-form.component.html',
@@ -23,7 +25,9 @@ import { Product } from "../../product";
 export class ProductFormComponent {
     initialState = input<Product>();
     newImage: File | undefined;
-    imgURl = signal<string>('');
+    imgURL = signal<string>('');
+
+    private fileTmp:any; 
     
     @Output()
     formsValueChanged = new EventEmitter<Product>();
@@ -112,7 +116,23 @@ export class ProductFormComponent {
         return this.productForm.get('tags')
     }
 
+
+    onNewImage($event: any): void {
+        const [ file ] = $event.target.files;
+        this.fileTmp = {
+            fileRaw: file,
+            fileName: file.name
+        };
+        this.imgURL.set(URL.createObjectURL(file));
+        
+    }
+
     submitForm() {
+
+        if (this.fileTmp) {
+            this.productForm.value['img'] = this.fileTmp.fileRaw;
+        }
+    
         this.formSubmitted.emit(this.productForm.value as Product);
     }
 

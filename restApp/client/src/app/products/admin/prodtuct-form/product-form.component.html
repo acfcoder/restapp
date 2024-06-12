@@ -38,7 +38,7 @@
     </mat-form-field>
     
     <div class="col-12 col-md-4" *ngIf="imgURL() === ''">
-        <img [src]="  img.value !== '' ? 'http://localhost:5200/menu/uploads/products/' + img.value : imgURL()" [alt]="name.value || 'Product Image'">
+        <img [src]="  img.value !== '' ? 'http://localhost:5300/produmenu/uploads/' + img.value : imgURL()" [alt]="name.value || 'Product Image'">
     </div>   
     <div class="col-12 col-md-4" *ngIf="imgURL() !== ''">
       <img [src]="imgURL()" [alt]="name.value || 'Product Image'">
