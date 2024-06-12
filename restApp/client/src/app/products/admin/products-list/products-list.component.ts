@@ -27,7 +27,6 @@ export class ProductsListComponent implements OnInit {
 
   ngOnInit() {
     this.fetchProducts();
-    console.log('estos son los productos: ',this.products$());
   }
 
   deleteProduct(id: string): void {

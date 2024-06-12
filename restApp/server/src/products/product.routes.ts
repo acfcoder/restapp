@@ -35,6 +35,7 @@
 
     export const productRouter = express.Router();
     export const productRouterAdmin = express.Router();
+    export const productRouterUpload = express.Router();
 
     productRouter.use(express.json());
     productRouterAdmin.use(express.json())
@@ -82,7 +83,28 @@
         }        
     });
 
-    productRouterAdmin.put("/upload/:id", fileUploads.single('file'), async(req, res) => {
+    productRouterAdmin.post("/upload", fileUploads.single('image'), async (req, res) => {
+        try {
+            if (!req.file) {
+                return res.status(400).send('No file uploaded or invalid file type.');
+            }
+    
+            // Log the file details
+            console.log('File uploaded successfully:', req.file);
+    
+            // Respond with the file details or a success message
+            res.status(201).send({
+                message: 'Image uploaded successfully',
+                filename: req.file.filename,
+                path: req.file.path
+            });
+        } catch (error) {
+            console.error(error);
+            res.status(500).send(error instanceof Error ? error.message : 'Unknown error');
+        }
+    });
+    
+    productRouterAdmin.put("/upload/:id", fileUploads.single('image'), async(req, res) => {
         try {
             const id = req?.params?.id;
             const item = req.body;

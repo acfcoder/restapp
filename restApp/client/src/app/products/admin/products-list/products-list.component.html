@@ -1,10 +1,9 @@
 @if(products$()) {
     <div class="container">
 
-    @for(product of products$(); track product.pos) {
+    @for(product of products$(); track product._id) {
         <div class="container p-2 m-2 border">
             <div class="row">
-               
             </div>
             <div class="row">
                 <div class="col-sm-12 col-md-4">
@@ -70,5 +69,11 @@
     } @empty {
     <p>There is not items available</p>
     }
+    
+  
+        <button mat-raised-button color="primary" [routerLink]="['new']">
+        Añade un nuevo producto
+        </button>
+
     </div>
 }

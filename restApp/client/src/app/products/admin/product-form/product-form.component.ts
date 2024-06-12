@@ -47,6 +47,7 @@ export class ProductFormComponent {
         time: [0], // preparation time
         excl: [0], // percentage of exclusivity
         allergens: [[0]],
+        image: [''],
         tags: [['']],
     })
 
@@ -59,12 +60,13 @@ export class ProductFormComponent {
                 price: this.initialState()?.price || 0,
                 category:  this.initialState()?.category || 0,
                 img: this.initialState()?.img || '',
-                pos:  this.initialState()?.pos || 0,
+                pos: this.initialState()?.pos || 0,
                 available: this.initialState()?.available || true,
                 time: this.initialState()?.time || 0, // preparation time
                 excl: this.initialState()?.excl || 0, // percentage of exclusivity
                 allergens:  this.initialState()?.allergens || [0],
-                tags:  this.initialState()?.tags || [''],
+                tags: this.initialState()?.tags || [''],
+                image: '',
             })
         })
     }
@@ -124,16 +126,18 @@ export class ProductFormComponent {
             fileName: file.name
         };
         this.imgURL.set(URL.createObjectURL(file));
+        console.log('Esto es onNewImage: ',this.imgURL);
         
     }
 
     submitForm() {
 
         if (this.fileTmp) {
-            this.productForm.value['img'] = this.fileTmp.fileRaw;
+            this.productForm.value['img'] = this.fileTmp.fileName;
         }
-    
+
         this.formSubmitted.emit(this.productForm.value as Product);
+        
     }
 
     getErrorMessage(controlName: string): string {

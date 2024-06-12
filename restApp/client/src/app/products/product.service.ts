@@ -46,4 +46,7 @@ export class ProductService {
     return this.httpClient.delete(`${this.url}/admin/products/${id}`, {responseType: 'text'});
   }
 
+  updateImageProduct(file: File) {
+    return this.httpClient.post(`${this.url}/admin/products/upload`, {responseType: 'text'});
+  }
 }
