@@ -45,7 +45,7 @@ export class ProductFormComponent {
         l_desc: [''],
         price: [ 0 , [Validators.required, Validators.pattern("^[0-9]+(\\.[0-9]{1,2})*$")]],
         category: [0],
-        img: [''],
+        img: ['no-image.svg'],
         pos: [0, [Validators.pattern("^[0-9]*$")]],
         available: [true],
         time: [0], // preparation time
@@ -63,7 +63,7 @@ export class ProductFormComponent {
                 l_desc: this.initialState()?.l_desc || '',
                 price: this.initialState()?.price || null,
                 category:  this.initialState()?.category || 0,
-                img: this.initialState()?.img || '',
+                img: this.initialState()?.img || 'no-image.svg',
                 pos: this.initialState()?.pos || 0,
                 available: this.initialState()?.available || true,
                 time: this.initialState()?.time || 0, // preparation time
