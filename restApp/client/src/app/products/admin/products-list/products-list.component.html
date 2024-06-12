@@ -36,10 +36,10 @@
                     <div class="label">Disponibilidad</div>
                     <div class="content">
                         <mat-radio-group [(ngModel)]="product.available">
-                            <mat-radio-button class="example-margin" value="true">
+                            <mat-radio-button class="example-margin" [value]="true">
                                 Disponible
                             </mat-radio-button>
-                            <mat-radio-button class="example-margin" value="false">
+                            <mat-radio-button class="example-margin" [value]="false">
                                 No disponible
                             </mat-radio-button>
                         </mat-radio-group>    
@@ -70,7 +70,6 @@
     <p>There is not items available</p>
     }
     
-  
         <button mat-raised-button color="primary" [routerLink]="['new']">
         Añade un nuevo producto
         </button>

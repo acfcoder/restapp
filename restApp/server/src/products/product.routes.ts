@@ -84,19 +84,15 @@
     });
 
     productRouterAdmin.post("/upload", fileUploads.single('image'), async (req, res) => {
+
         try {
             if (!req.file) {
                 return res.status(400).send('No file uploaded or invalid file type.');
             }
-    
-            // Log the file details
-            console.log('File uploaded successfully:', req.file);
-    
+
             // Respond with the file details or a success message
             res.status(201).send({
-                message: 'Image uploaded successfully',
-                filename: req.file.filename,
-                path: req.file.path
+                filename: req.file.filename
             });
         } catch (error) {
             console.error(error);
@@ -164,7 +160,6 @@
             const id = req?.params?.id;
             const query = { _id: new ObjectId(id) };
             const product = await collections.products?.findOne(query);
- 
             const result = await collections?.products?.deleteOne(query);
 
             if (result && result.deletedCount) {

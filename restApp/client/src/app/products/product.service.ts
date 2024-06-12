@@ -1,6 +1,8 @@
 import { Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Product } from './product';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators'
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +12,8 @@ export class ProductService {
   private url = 'http://localhost:5300';
   products$ = signal<Product[]>([]);
   product$ = signal<Product>({} as Product);
+
+  fileNameSubject$ = signal<string>('');
 
 
   constructor(private httpClient: HttpClient) { }
@@ -46,7 +50,17 @@ export class ProductService {
     return this.httpClient.delete(`${this.url}/admin/products/${id}`, {responseType: 'text'});
   }
 
-  updateImageProduct(file: File) {
-    return this.httpClient.post(`${this.url}/admin/products/upload`, {responseType: 'text'});
+  updateImageProduct(image: File): Observable<any> {
+    const formData = new FormData();
+    formData.append('image', image, image.name);
+    return this.httpClient.post<{filename: string}>(`${this.url}/admin/products/upload`, formData)
+    .pipe(
+      tap(response => this.fileNameSubject$.set(response.filename))
+    )
   }
+
+  getFileName(){
+    return this.fileNameSubject$();
+  }
+
 }

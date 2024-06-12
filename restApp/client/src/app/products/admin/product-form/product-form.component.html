@@ -53,8 +53,8 @@
 
     <label class="w-100 p-2 ">Disponibilidad</label>
     <mat-radio-group formControlName="available"  class="w-100 p-1">
-        <mat-radio-button value="true">Disponible</mat-radio-button>
-        <mat-radio-button value="false">No disponible</mat-radio-button>
+        <mat-radio-button [value]="true">Disponible</mat-radio-button>
+        <mat-radio-button [value]="false">No disponible</mat-radio-button>
     </mat-radio-group>
 
     <div class="buttons mt-6 col-12">

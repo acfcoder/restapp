@@ -6,6 +6,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatButtonModule } from '@angular/material/button';
 import { Product } from "../../product";
 import { CommonModule } from "@angular/common";
+import { ProductService } from "../../product.service";
 
 @Component({
     selector: 'app-product-form',
@@ -35,11 +36,14 @@ export class ProductFormComponent {
     @Output()
     formSubmitted = new EventEmitter<Product>();
 
+    @Output()
+    uploadImage = new EventEmitter<File>();
+
     productForm = this.formBuilder.group({
         name:  ['', [Validators.required, Validators.minLength(3)]],
         desc: ['', [Validators.required, Validators.minLength(5)]],
         l_desc: [''],
-        price: [0 , [Validators.required, Validators.pattern("^[0-9]+(\\.[0-9]{1,2})*$")]],
+        price: [ 0 , [Validators.required, Validators.pattern("^[0-9]+(\\.[0-9]{1,2})*$")]],
         category: [0],
         img: [''],
         pos: [0, [Validators.pattern("^[0-9]*$")]],
@@ -51,13 +55,13 @@ export class ProductFormComponent {
         tags: [['']],
     })
 
-    constructor(private formBuilder: FormBuilder){
+    constructor(private formBuilder: FormBuilder, private productService: ProductService){
         effect(() => {
             this.productForm.setValue({
                 name: this.initialState()?.name || '',
                 desc: this.initialState()?.desc || '',
                 l_desc: this.initialState()?.l_desc || '',
-                price: this.initialState()?.price || 0,
+                price: this.initialState()?.price || null,
                 category:  this.initialState()?.category || 0,
                 img: this.initialState()?.img || '',
                 pos: this.initialState()?.pos || 0,
@@ -126,18 +130,17 @@ export class ProductFormComponent {
             fileName: file.name
         };
         this.imgURL.set(URL.createObjectURL(file));
-        console.log('Esto es onNewImage: ',this.imgURL);
-        
+
+        this.uploadImage.emit(file);
     }
 
     submitForm() {
 
         if (this.fileTmp) {
-            this.productForm.value['img'] = this.fileTmp.fileName;
+            this.productForm.value['img'] = this.productService.fileNameSubject$();
         }
 
         this.formSubmitted.emit(this.productForm.value as Product);
-        
     }
 
     getErrorMessage(controlName: string): string {

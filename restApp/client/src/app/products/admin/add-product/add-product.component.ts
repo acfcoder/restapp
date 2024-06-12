@@ -17,6 +17,7 @@ import { MatCardModule } from '@angular/material/card';
       <mat-card-content>
         <app-product-form
           (formSubmitted)="addProduct($event)"
+          (uploadImage)="uploadImage($event)"
         ></app-product-form>
       </mat-card-content>
     </mat-card>
@@ -30,7 +31,7 @@ export class AddProductComponent {
   ){}
 
   addProduct(product: Product) {
-    console.log ('Esto es al pulsar submit: ',product);
+    console.log ('Esto es al pulsar submit: ', product);
 
     this.productService.createProduct(product).subscribe({
       next: () => {
@@ -43,6 +44,19 @@ export class AddProductComponent {
       
     });
     this.productService.getProducts();
+  }
+
+  uploadImage(image: File) {
+    console.log ('Esto es lo que pasa con el upload Image: ', image);
+    this.productService.updateImageProduct(image).subscribe({
+      next: (response) => {
+        const filename2 = this.productService.getFileName();
+        console.log('Nombre del archivo subido:', filename2);
+      },
+      error: (error) => {
+        console.error('Error al subir la imagen:', error);
+      }
+    });
   }
 
 }
