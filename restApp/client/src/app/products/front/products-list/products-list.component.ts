@@ -16,7 +16,7 @@ import { Product } from '../../product';
   standalone: true,
   imports: [RouterModule, MatTableModule, MatButtonModule, MatCardModule, MatTabsModule, MatRadioModule, CommonModule, FormsModule, MatIconModule],
   templateUrl: 'products-list.component.html',
-  styles: ``
+  styleUrl: 'products-list.component.scss'
 })
 export class FProductsListComponent {
   errorMessage = '';

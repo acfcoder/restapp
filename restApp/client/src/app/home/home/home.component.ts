@@ -6,9 +6,6 @@ import { FProductsListComponent } from '../../products/front/products-list/produ
   standalone: true,
   imports: [FProductsListComponent],
   template: `
-    <p>
-      home works!
-    </p>
     <app-f-products-list></app-f-products-list>
   `,
   styles: ``

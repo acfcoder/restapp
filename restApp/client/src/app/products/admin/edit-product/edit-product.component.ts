@@ -52,7 +52,7 @@ export class EditProductComponent {
       .updateProduct(this.product()._id || '', product)
       .subscribe({
         next: () => {
-          this.router.navigate(['/']);
+          this.router.navigate(['/products']);
         },
         error: (error) => {
           alert('Failed to update product');
