@@ -104,36 +104,36 @@ async function applySchemaValidation(db: mongodb.Db) {
                     description: "'lines' are required and is a string",
                 },
                 user: {
-                    bsontype: "text",
+                    bsonType: "string",
                     description: "user Id",
                 },
                 price: {
-                    bsonype: "number",
+                    bsonType: "number",
                     description: "This field is calculated",    
                 },
                 tax: {
-                    bsonype: "number",
+                    bsonType: "number",
                     description: "Tax has been applied",    
                 },
                 total: { 
-                    bsontype: "number",
+                    bsonType: "number",
                     description: "Tax * price",
                 },
                 date: {
-                    bsontype: "date",
+                    bsonType: "date",
                     description: "Date of the transaction"
                 },
                 status: {
-                    bsontype: "string",
+                    bsonType: "string",
                     description: "State of the order",
                     enum: ["waiting", "accepted", "rejected"],
                 },
                 paid: {
-                    bsontype: "bool",
+                    bsonType: "bool",
                     description: "Order payment status",
                 },
                 delivered: {
-                    bsontype: "bool",
+                    bsonType: "bool",
                     description: "Order pending?"
                 }
             },
