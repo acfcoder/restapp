@@ -1,0 +1,77 @@
+@if(products()) {
+    <div class="container">
+
+    @for(product of products(); track product._id) {
+        <div class="container p-2 m-2 border">
+            <div class="row">
+            </div>
+            <div class="row">
+                <div class="col-sm-12 col-md-4">
+                    <div class="label">Nombre</div>
+                    <div class="content">{{ product.name }}</div>
+                    <div class="label">Descripción</div>
+                    <div class="content ">{{ product.desc }}</div>
+                </div>
+                <div class="col-sm-12 col-md-4">
+                    <div class="label">Descripcion Larga</div>
+                    <div class="content">{{ product.l_desc }}</div>
+                </div>
+                <div class="col-sm-12 col-md-4">
+                    <div class="label">Imagen</div>
+                    <div class="content">
+                        <img src="http://localhost:5300/products/uploads/{{ product.img }}" alt="{{ product.name }}">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4 col-md-1">
+                    <div class="label">Precio</div>
+                    <div class="content  text-end">{{ product.price }}</div>
+                </div>
+                <div class="col-sm-4 col-md-1">
+                    <div class="label">Posicion</div>
+                    <div class="content  text-end">{{ product.pos }}</div>
+                </div>
+                <div class="col-sm-4 col-md-2">
+                    <div class="label">Disponibilidad</div>
+                    <div class="content">
+                        <mat-radio-group [(ngModel)]="product.available">
+                            <mat-radio-button class="example-margin" [value]="true">
+                                Disponible
+                            </mat-radio-button>
+                            <mat-radio-button class="example-margin" [value]="false">
+                                No disponible
+                            </mat-radio-button>
+                        </mat-radio-group>    
+                    </div>    
+                </div>
+                <div class="col-sm-4 col-md-1">
+                    <div class="label">Categoria</div>
+                    <div class="content  text-end">{{ product.category }}</div>
+                </div>
+                <div class="col-sm-4 col-md-1">
+                    <div class="label">Alergenos</div>
+                    <div class="content  text-end">{{ product.category }}</div>
+                </div>
+                <div class="col-sm-4 col-md-2">
+                    <span>{{ product._id }}</span>
+                </div>
+                
+                <div class="buttons-group col-2">
+            
+                </div>   
+            </div>
+            
+        </div>    
+        
+    
+    } @empty {
+    <p>There is not items available</p>
+    }
+    
+        <button mat-raised-button color="primary" [routerLink]="['new']">
+        Añade un nuevo producto
+        </button>
+
+    </div>
+}

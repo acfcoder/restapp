@@ -1,5 +1,5 @@
-import { Injectable, signal } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Injectable, inject, signal } from '@angular/core';
 import { Product } from './product';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators'
@@ -10,11 +10,14 @@ import { tap } from 'rxjs/operators'
 export class ProductService {
 
   private url = 'http://localhost:5300';
+  http = inject(HttpClient);
   products$ = signal<Product[]>([]);
   product$ = signal<Product>({} as Product);
 
   fileNameSubject$ = signal<string>('');
 
+  selectedProduct= signal<Product | undefined>(undefined);
+  
 
   constructor(private httpClient: HttpClient) { }
 
@@ -37,6 +40,12 @@ export class ProductService {
       return this.product$()
     })
   }
+
+  productSelected(productId: string) {
+    const foundProduct = this.products$().find((p) => p._id === productId);
+    this.selectedProduct.set(foundProduct);
+  }
+
 
   createProduct(product: Product) {
     return this.httpClient.post(`${this.url}/admin/products`, product, {responseType: 'text'});
