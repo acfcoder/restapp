@@ -5,6 +5,7 @@ import { connectToDatabase } from "./database";
 import { productRouter } from "./products/product.routes";
 import { productRouterAdmin } from "./products/product.routes";
 import path from "path";
+import { orderRouter } from "./orders/orders.routes";
 
 dotenv.config();
 
@@ -24,7 +25,8 @@ connectToDatabase(ATLAS_URI)
 
     // start the Express server
         app.use("/products", productRouter );
-        app.use("/admin/products", productRouterAdmin )
+        app.use("/admin/products", productRouterAdmin);
+        app.use("/admin/orders", orderRouter);
         app.listen(5300, () => {
             console.log(`Server running at http://localhost:5300...`);
         });

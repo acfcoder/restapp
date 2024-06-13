@@ -1,8 +1,11 @@
 import * as mongodb from "mongodb";
 import { Product } from "./products/product";
+import { Order } from "./orders/orders";
+import { finished } from "stream";
 
 export const collections: {
     products?: mongodb.Collection<Product>;
+    orders?: mongodb.Collection<Order>;
 } = {};
 
 export async function connectToDatabase(uri: string) {
@@ -17,13 +20,15 @@ export async function connectToDatabase(uri: string) {
         const productsCollection = db.collection<Product>("product");
         collections.products = productsCollection;
 
+        const ordersCollection = db.collection<Order>("order");
+        collections.orders = ordersCollection;
+
     } catch (error) {
         console.error('Failed to connect to the database or failed to apply schema validation: ', error);
         throw error;
     }
     
 }
-
 
 async function applySchemaValidation(db: mongodb.Db) {
     const productJsonSchema = {
@@ -87,12 +92,80 @@ async function applySchemaValidation(db: mongodb.Db) {
         },
     };
 
-    await db.command ({
+    const orderJsonSchema = {
+        $jsonSchema: {
+            bsonType: "object",
+            required: ["lines", "user", "price", "total"],
+            additionalProperties: true,
+            properties: {
+                _id: {},
+                lines: {
+                    bsonType: "array",
+                    description: "'lines' are required and is a string",
+                },
+                user: {
+                    bsontype: "text",
+                    description: "user Id",
+                },
+                price: {
+                    bsonype: "number",
+                    description: "This field is calculated",    
+                },
+                tax: {
+                    bsonype: "number",
+                    description: "Tax has been applied",    
+                },
+                total: { 
+                    bsontype: "number",
+                    description: "Tax * price",
+                },
+                date: {
+                    bsontype: "date",
+                    description: "Date of the transaction"
+                },
+                status: {
+                    bsontype: "string",
+                    description: "State of the order",
+                    enum: ["waiting", "accepted", "rejected"],
+                },
+                paid: {
+                    bsontype: "bool",
+                    description: "Order payment status",
+                },
+                delivered: {
+                    bsontype: "bool",
+                    description: "Order pending?"
+                }
+            },
+        },
+    };            
+
+
+    try {
+        await db.command ({
         collMod: "product",
         validator: productJsonSchema
-    }).catch(async (error: mongodb.MongoServerError) => {
-        if (error.codeName === "NamespaceNotFound") {
-            await db.createCollection("product"), {validator: productJsonSchema}};
-        })
+        });
+    } catch (error) {
+        if (error instanceof mongodb.MongoServerError && error.  codeName  === "NamespaceNotFound") {
+            await db.createCollection("products", {validator: productJsonSchema})
+        } else {
+            console.error('Error in users schema validation:', error);
+        };
+    }
+
+    try {
+        await db.command ({
+        collMod: "order",
+        validator: orderJsonSchema
+        });
+    } catch (error) {
+        if (error instanceof mongodb.MongoServerError && error.  codeName  === "NamespaceNotFound") {
+            await db.createCollection("orders", {validator: orderJsonSchema})
+        } else {
+            console.error('Error in users schema validation:', error);
+        };
+    }     
+    
 };
 
