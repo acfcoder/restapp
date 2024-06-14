@@ -1,0 +1,33 @@
+
+
+@if (cartItem()){
+    <div class="cart-item">
+        <img class="cart-item__img" src="http://localhost:5300/products/uploads/{{ cartItem().product.img }}" alt="{{ cartItem().product.name }}">
+        <h3 class="cart-item__name">
+            {{ cartItem().product.name }}
+        </h3>
+        <div class="cart-item__price">
+            {{ cartItem().product.price }}
+        </div>
+        <div class="class-item__qtty">
+            <div class="class-item__qtty--delete">
+                <button type="button"
+                class="btn btn-warning"
+                aria-label="Close"
+                (click)="onRemove()">
+                Delete 
+                </button>
+            </div>
+            <div class="class-item__qtty--selector">
+                <select class="qtty-selector"
+                    aria-label="Quantity list"
+                    [ngModel] = "cartItem().quantity"
+                    (ngModelChange) = "onQtySelected($event)">
+                        @for (q of qtyArray(); track q) {
+                            <option value="{{ q }}">{{ q }}</option>
+                        }
+                </select>
+            </div>
+        </div>
+    </div>
+}

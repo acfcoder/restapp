@@ -2,7 +2,9 @@
     <div class="container">
         <h1>Resumen de tu pedido</h1>
         <button type="button" class="btn btn-big">Confirmar</button>
-        <app-cart-item></app-cart-item>
+        @for(item of cartItems(); track item) {
+            <app-cart-item [item]="item"></app-cart-item>
+        }
         <hr>
         <div class="totals">
 
