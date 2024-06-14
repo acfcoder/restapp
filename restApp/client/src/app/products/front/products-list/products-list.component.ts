@@ -10,6 +10,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatIconModule } from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
 import { Product } from '../../product';
+import { CartService } from '../../../cart/cart.service';
 
 @Component({
   selector: 'app-f-products-list',
@@ -21,6 +22,7 @@ import { Product } from '../../product';
 export class FProductsListComponent {
   errorMessage = '';
   productService = inject(ProductService);
+  cartService = inject(CartService);
 
   products = computed(() => {
     try {
@@ -34,5 +36,11 @@ export class FProductsListComponent {
 
   onSelected(productName: string): void {
     this.productService.productSelected(productName);
+  }
+
+  addToCart(product: Product | undefined) {
+    if (product) {
+      this.cartService.addToCart(product);
+    }
   }
 }

@@ -8,13 +8,13 @@
 
             </div>
             
-            <div class="row product__desc">
-                <div class="col-9 text-start">
+            <div class="product__desc">
+                <div class="product__desc--1 text-start">
                     <h2 class="product__desc--name">{{ product.name }}</h2>
                     <p class="desc">{{ product.desc }}</p>
                 </div>
-                <div class="col-3 text-end">
-                    <div class="cart-icon">
+                <div class="product__desc--2 text end">
+                    <div class="cart-icon" (click)="addToCart(product)">
                         <img src="assets/icons/cart.png" alt="">
                     </div>
                     <div class="product__desc--price">{{ product.price }} €</div>

@@ -3,10 +3,12 @@ import { ProductsListComponent } from './products/admin/products-list/products-l
 import { AddProductComponent } from './products/admin/add-product/add-product.component';
 import { EditProductComponent } from './products/admin/edit-product/edit-product.component';
 import { HomeComponent } from './home/home/home.component';
+import { CartListComponent } from './cart/cart-list/cart-list.component';
 
 
 export const routes: Routes = [
     { path: 'home', component: HomeComponent },
+    { path: 'cart', component: CartListComponent},
     { path: 'products', component: ProductsListComponent, title: 'Product list'},
     { path: 'products/new', component: AddProductComponent, title: 'Add Product'},
     { path: 'products/edit/:id', component: EditProductComponent, title: 'Edit product'},

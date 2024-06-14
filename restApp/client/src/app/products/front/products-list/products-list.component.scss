@@ -8,7 +8,7 @@ $primary: #C16D19;
 
 .product {
     width: 100%;
-    padding: 4px 0;
+    padding: 0;
     margin: 4px auto;
 }
 
@@ -17,7 +17,7 @@ $primary: #C16D19;
     margin: 8px auto;
     overflow: hidden;
     padding: 0!important;
-    height: 170px;
+    height: 175px;
     border-radius: 8px;
     img {
         width: 100%;
@@ -31,11 +31,23 @@ $primary: #C16D19;
     display: flex;
     margin: 10px auto;
     padding: 4px;
+    width: 100%;
+    .product__desc--1 {
+        flex-grow: 2;
+    }
+    .product__desc--2 {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        flex-wrap: nowrap;
+        min-width:100px
+    }
 }
 
 .product__desc--price {
     font-size: 1.8rem;
     text-align: right;
+    min-width:120px;
 }
 
 .cart-icon {

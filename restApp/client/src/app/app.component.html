@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand navbar-light sticky-top p-1 border-bottom-4">
+<nav class="navbar navbar-expand navbar-light p-1 border-bottom-4">
     <ul class="navbar-nav justify-content-between align-items-center w-100" >
         <li class="nav-item min-w-80">
             <a class="navbar-brand p-2"  [routerLink]="['/home']"
@@ -46,9 +46,10 @@
             routerLinkActive="active"
             [routerLinkActiveOptions]="{ exact : true}">
             <img src="assets/icons/cart.png" alt="Pedido">
-            <!--<span class="badge bg-primary"
-                    *ngIf="cartCount()">{{cartCount()}}</span>
-            -->Pedido
+                @if(cartCount()) {
+                    <span class="counter">{{cartCount()}}</span>
+                }
+            Pedido
             </a>
         </li>
         <li class="nav-item min-w-80">
