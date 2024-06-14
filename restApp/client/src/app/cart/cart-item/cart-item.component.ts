@@ -4,11 +4,7 @@ import { Component } from '@angular/core';
   selector: 'app-cart-item',
   standalone: true,
   imports: [],
-  template: `
-    <p>
-      cart-item works!
-    </p>
-  `,
+  templateUrl: 'cart-item.component.html',
   styles: ``
 })
 export class CartItemComponent {

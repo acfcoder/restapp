@@ -23,7 +23,33 @@ p {
     font-size: 1rem;
 }
 
-ul.navbar-nav.bottom{
+.container {
+    margin-top: 1rem;
+}
+
+
+.btn {
+    display: block;
+    position: relative;
+    margin: 1rem auto;
+    padding: .5rem;
+    text-align: center;
+    color: $primary;
+    font-weight: 600;
+    border: 4px solid $primary;
+    border-radius: 2rem;
+    min-width: 180px;
+    font-size: large;
+
+}
+
+.btn-big {
+        min-width: 300px;
+        font-size: larger;
+        text-transform: uppercase;
+    }
+
+    ul.navbar-nav.bottom{
     display: flex;
     justify-content: space-around;
     width: 100%;
@@ -58,7 +84,7 @@ a.nav-link {
     display: block;
     position: absolute;
     top: -3px;
-    left: calc(50vw + 35px);
+    left: calc(50vw + 38px);
     background-color: red;
     width: 30px;
     height: 30px;

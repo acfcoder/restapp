@@ -11,5 +11,6 @@ export interface Order {
     status: "waiting" | "accepted" | "rejected";
     paid: boolean;
     delivered: boolean;
+    extra: string;
     _id?: mongodb.ObjectId;
 }

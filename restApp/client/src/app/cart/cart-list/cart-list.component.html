@@ -1,10 +1,20 @@
 @if (cartItems().length>0){
+    <div class="container">
+        <h1>Resumen de tu pedido</h1>
+        <button type="button" class="btn btn-big">Confirmar</button>
+        <app-cart-item></app-cart-item>
+        <hr>
+        <div class="totals">
 
-    <h1>Resumen de tu pedido</h1>
-    <app-cart-item></app-cart-item>
-    <hr>
-    <div class="totals">
-
+        </div>
+        <div class="cart__options">
+            <button type="button" class="btn" (click)="navigateToHome(false)">Quiero algo más</button>
+            <label for="extra">
+                Si hay algo que necesitas decirnos, hazlo a continuación:
+            </label>
+            <textarea name="extra" id="extra"></textarea>
+            <button type="button" class="btn" (click)="navigateToHome(true)">Quizás otro día</button>
+        </div>
     </div>
 }
 
