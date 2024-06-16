@@ -34,6 +34,20 @@ export class CartItemComponent {
     this.cartService.updateInCart(this.cartItem(), Number(qty))
   }
 
+  plusQty() {
+    if (this.cartItem().quantity < 10){
+    let newQty = this.cartItem().quantity + 1;
+    this.cartService.updateInCart(this.cartItem(), Number(newQty));
+    }
+  }
+
+  minusQty() {
+    if (this.cartItem().quantity > 0){
+      let newQty = this.cartItem().quantity - 1;
+      this.cartService.updateInCart(this.cartItem(), Number(newQty));
+    }
+  }
+
   onRemove(): void {
     this.cartService.removeFromCart(this.cartItem());
   }

@@ -17,7 +17,7 @@
                     <div class="cart-icon" (click)="addToCart(product)">
                         <img src="assets/icons/cart.png" alt="">
                     </div>
-                    <div class="product__desc--price">{{ product.price }} €</div>
+                    <div class="product__desc--price">{{ product.price  | number:'1.2-2' }}€</div>
                 </div>
             </div>
         </div>    

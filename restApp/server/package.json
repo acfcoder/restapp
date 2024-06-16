@@ -1,13 +1,13 @@
 {
   "name": "server",
-  "version": "1.0.0",
-  "description": "server for rstApp",
+  "version": "1.4.0",
+  "description": "server for restApp",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
+  "author": "Antoni Collado Folch",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
