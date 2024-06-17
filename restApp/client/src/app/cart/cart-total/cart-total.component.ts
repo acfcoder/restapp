@@ -1,10 +1,11 @@
 import { Component, inject } from '@angular/core';
 import { CartService } from '../cart.service';
+import { DecimalPipe } from '@angular/common';
 
 @Component({
   selector: 'app-cart-total',
   standalone: true,
-  imports: [],
+  imports: [DecimalPipe],
   templateUrl: 'cart-total.component.html',
   styles: ``
 })
