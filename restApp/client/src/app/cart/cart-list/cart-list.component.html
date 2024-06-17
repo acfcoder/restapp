@@ -1,6 +1,6 @@
 @if (cartItems().length>0){
     <div class="container total">
-        <h1>Resumen de tu pedido</h1>
+        <h1 class="bd">Resumen de tu pedido</h1>
         @for(item of cartItems(); track item.product) {
             <app-cart-item class="app-cart-item" [item]="item"></app-cart-item>
         }
@@ -8,7 +8,7 @@
             <app-cart-total></app-cart-total>
         </div>
         <div class="cart__options">
-            <button type="button" class="btn btn-big">Confirmar</button>
+            <button type="button" class="btn btn-big" (click)="navigateToConfirm()">Confirmar</button>
             <button type="button" class="btn" (click)="navigateToHome(false)">Quiero algo más</button>
             <label for="extra">
                 Si hay algo que necesitas decirnos, hazlo a continuación:

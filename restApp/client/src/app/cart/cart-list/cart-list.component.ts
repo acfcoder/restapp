@@ -26,4 +26,9 @@ export class CartListComponent {
     };
     this.router.navigate(['/home']);
   }
+
+  navigateToConfirm() {
+    this.router.navigate(['/confirm'])
+  }
+
 }

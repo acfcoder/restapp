@@ -16,6 +16,7 @@ import { IMGS_PRODUCTS_DIR } from '../../constants';
 
 export class CartItemComponent {
   cartService = inject(CartService);
+  isRemove: boolean = false;
 
   private _item!: CartItem;
   get item(): CartItem {
@@ -41,10 +42,6 @@ export class CartItemComponent {
   exPrice = computed(() => 
     this.cartItem().quantity * Number(this.cartItem().product.price));
 
-  onQtySelected(qty: number | any): void {
-    this.cartService.updateInCart(this.cartItem(), Number(qty))
-  }
-
   plusQty() {
       let newQty = this.cartItem().quantity + 1;
       this.cartService.updateInCart(this.cartItem(), Number(newQty));
@@ -57,6 +54,9 @@ export class CartItemComponent {
   }
 
   onRemove(): void {
-    this.cartService.removeFromCart(this.cartItem());
-  }
+    this.isRemove = true;
+    setTimeout (
+      () =>  {this.cartService.removeFromCart(this.cartItem())}, 300);
+  } 
+
 }
