@@ -3,6 +3,8 @@ import { DecimalPipe, CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { CartService } from '../cart.service';
 import { CartItem } from '../cart';
+import { MAX_QTY } from '../../constants';
+import { IMGS_PRODUCTS_DIR } from '../../constants';
 
 @Component({
   selector: 'app-cart-item',
@@ -10,7 +12,8 @@ import { CartItem } from '../cart';
   imports: [DecimalPipe, FormsModule, CommonModule],
   templateUrl: 'cart-item.component.html',
   styles: ``
-})
+}) 
+
 export class CartItemComponent {
   cartService = inject(CartService);
 
@@ -23,9 +26,17 @@ export class CartItemComponent {
     this.cartItem.set(item)
   }
 
+  errMessage: string = '';
+  showErrMessage: boolean = false;
+  
   qtyArray = signal([1, 2, 3, 4, 5, 6]);
 
   cartItem = signal(this.item);
+  
+  // Constants
+  maxQty: number = MAX_QTY;
+  urlProductImgs: string = IMGS_PRODUCTS_DIR;
+
 
   exPrice = computed(() => 
     this.cartItem().quantity * Number(this.cartItem().product.price));
@@ -35,17 +46,14 @@ export class CartItemComponent {
   }
 
   plusQty() {
-    if (this.cartItem().quantity < 10){
-    let newQty = this.cartItem().quantity + 1;
-    this.cartService.updateInCart(this.cartItem(), Number(newQty));
-    }
+      let newQty = this.cartItem().quantity + 1;
+      this.cartService.updateInCart(this.cartItem(), Number(newQty));
+      console.log (newQty)
   }
 
   minusQty() {
-    if (this.cartItem().quantity > 0){
       let newQty = this.cartItem().quantity - 1;
       this.cartService.updateInCart(this.cartItem(), Number(newQty));
-    }
   }
 
   onRemove(): void {

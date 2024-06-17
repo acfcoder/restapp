@@ -1,0 +1,18 @@
+<div class="cart-total">
+    <div class="cart-total__line">
+        <div>Subtotal</div>
+        <div>{{ subTotal() }}€</div>
+    </div>
+    <div class="cart-total__line">
+        <div>Entrega</div>
+        <div>{{ delivery() }}€</div>
+    </div>
+    <div class="cart-total__line">
+        <div>I.V.A. ({{ cartService.tax }}%)</div>
+        <div>{{ taxQ() }}€</div>
+    </div>
+    <div class="cart-total__total">
+        <div>Total</div>
+        <div>{{ totalPrice() }}€</div>
+    </div>
+</div>

@@ -2,7 +2,7 @@
     <div class="cart-item">
         <div class="cart_item__desc">
             <div class="cart_item___desc--img">
-                <img class="cart-item__img" src="http://localhost:5300/products/uploads/{{ cartItem().product.img }}" alt="{{ cartItem().product.name }}">
+                <img class="cart-item__img" src="{{ urlProductImgs }}{{ cartItem().product.img }}" alt="{{ cartItem().product.name }}">
             </div>
             <div class="cart_item___desc--desc">
                 <div class="name">
@@ -10,7 +10,8 @@
                 </div>
                 <div class="price">
                     @if (cartItem().quantity > 1) {
-                        {{ cartItem().quantity }} * {{ cartItem().product.price | number:'1.2-2'}}€ = {{ exPrice() | number:'1.2-2' }}€
+                        {{ cartItem().quantity }} x {{ cartItem().product.price | number:'1.2-2'}}€<br>
+                        {{ exPrice() | number:'1.2-2' }}€
                     } @else {
                         {{ cartItem().product.price | number:'1.2-2' }}€
                     }
@@ -18,23 +19,42 @@
             </div>
         </div>
 
-        <div class="class-item__qtty">
-            <div class="class-item__qtty--delete">
+        <div class="class-item__qty">
+            <div class="class-item__qty--delete">
                 <button type="button"
-                class="btn btn-mini"
+                class="btn btn-icon text-start"
                 aria-label="Close"
                 (click)="onRemove()">
                     <img src="assets/icons/delete.png" alt="delete {{ cartItem().product.name }}"/>
                 </button>
             </div>
-            <div class="class-item__qtty--selector">
-                <div class="qty">{{ cartItem().quantity }}</div>
+            <div class="class-item__qty--selector">
+                <button type="icon"
+                class="btn btn-icon btn-combo__qty btn-combo__qty--left"
+                (click)="minusQty()"
+                [ngClass]="{'none': cartItem().quantity === 1}">
+                    -
+                </button>
+
+                <div class="btn-icon btn-combo__qty--number" 
+                    [ngClass]="{
+                        'btn-combo__qty--right': cartItem().quantity === maxQty,
+                        'btn-combo__qty--left': cartItem().quantity === 1
+                    }">
+                        {{ cartItem().quantity }}
+                </div>
+            
                 <button type="button"
-                    class="btn btn-mini"
-                    (click)="plusQty()">
-                        plus
-                    </button>
+                class="btn btn-icon btn-combo__qty btn-combo__qty--right"
+                (click)="plusQty()"
+                [ngClass]="{'none': cartItem().quantity === maxQty}">
+                    +
+                </button>
             </div>
         </div>
+        @if(showErrMessage === true) {
+
+        }
+
     </div>
 }
