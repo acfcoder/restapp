@@ -36,7 +36,7 @@ p {
 .btn {
     display: block;
     position: relative;
-    margin: 1rem auto;
+    margin: .5rem auto 1rem;
     padding: .5rem;
     text-align: center;
     color: $primary;
@@ -85,6 +85,7 @@ p {
 .btn-icon.btn-combo__qty--number {
     width: 2.2rem;
     min-width: 2.2rem;
+    margin: .5rem auto 1rem;
     border-radius: 0;   
     border-left: 0;
     border-right: 0;
@@ -255,7 +256,7 @@ a.nav-link.active {
         font-size: 1.2rem;
         line-height: 1.4rem;
         text-align: end;
-        padding-top: .8rem;
+        padding-top: .5rem;
         align-self: right;
     }
     .units-price {

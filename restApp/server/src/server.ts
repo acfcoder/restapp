@@ -2,10 +2,11 @@ import * as dotenv from "dotenv";
 import express from "express";
 import cors from "cors";
 import { connectToDatabase } from "./database";
-import { productRouter } from "./products/product.routes";
-import { productRouterAdmin } from "./products/product.routes";
+import { productRouter } from "./products/products.routes";
+import { productRouterAdmin } from "./products/products.routes";
 import path from "path";
 import { orderRouter } from "./orders/orders.routes";
+import { registerRouter, loginRouter } from "./users/user.routes";
 
 dotenv.config();
 
@@ -27,6 +28,8 @@ connectToDatabase(ATLAS_URI)
         app.use("/products", productRouter );
         app.use("/admin/products", productRouterAdmin);
         app.use("/admin/orders", orderRouter);
+        app.use("/login", loginRouter);
+        app.use("/user/new", registerRouter);
         app.listen(5300, () => {
             console.log(`Server running at http://localhost:5300...`);
         });

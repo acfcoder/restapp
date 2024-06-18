@@ -79,7 +79,7 @@
             }
         } catch (error) {
             console.error(error);
-            res.status(400).send (error instanceof Error ? error.message: 'Unknown error');
+            res.status(400).send (error instanceof Error ? error.message : 'Unknown error');
         }        
     });
 
