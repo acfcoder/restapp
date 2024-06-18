@@ -1,8 +1,6 @@
 import * as express from "express";
-import { ConnectionClosedEvent, ObjectId } from "mongodb";
+import { ObjectId } from "mongodb";
 import { collections } from "../database";
-import { User } from "./user";
-import { error } from "console";
 
 export const registerRouter = express.Router();
 export const loginRouter = express.Router();
@@ -14,7 +12,8 @@ loginRouter.use(express.json());
 registerRouter.post('/', async (req, res) => {
     try {
         const user = req.body;
-        const checkMail = await collections.products?.findOne(user.mail);
+
+        const checkMail = await collections.users?.findOne({mail: user.mail});
         const result = await collections?.users?.insertOne(user);
 
         if(!checkMail) {
@@ -25,9 +24,7 @@ registerRouter.post('/', async (req, res) => {
             }
 
         } else {
-            //Cambiar 
-            console.log ("El mail ya esta registrado. No es posible utilizarlo");
-            return;
+            res.status(500).send("Mail is registered");
         } 
     
     } catch (error) {
@@ -41,18 +38,15 @@ loginRouter.post('/', async (req, res) => {
     try {
         const user = req.body;
         
-        const checkMail = await collections.products?.findOne(user.mail);
-        const checkPass = await collections.products?.findOne(user.pass);
+        const loginSuccess = await collections.users?.findOne({mail: user.mail, pass: user.pass});
 
-        if (!checkMail) {
-            console.log("Usuario o password incorrecto");
-            return;
+        if (!loginSuccess) {
+            res.status(500).send("User or pass are not correct");     
+        } else {
+            res.status(200).send(`Hello, again, ${loginSuccess.name}`);
         } 
         
-        if (!checkPass) {
-            console.log("Usuario o password incorrecto");
-            return;
-        }
+
     } catch (error){
         console.error(error);
         res.status(400).send (error instanceof Error ? error.message : "Unknown error" );

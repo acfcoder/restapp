@@ -21,13 +21,13 @@ export async function connectToDatabase(uri: string) {
         await productApplySchemaValidation(db);
         await orderApplySchemaValidation(db);
 
-        const productsCollection = db.collection<Product>("product");
+        const productsCollection = db.collection<Product>("products");
         collections.products = productsCollection;
 
-        const ordersCollection = db.collection<Order>("order");
+        const ordersCollection = db.collection<Order>("orders");
         collections.orders = ordersCollection;
 
-        const usersCollection = db.collection<User>("user");
+        const usersCollection = db.collection<User>("users");
         collections.users = usersCollection;
 
     } catch (error) {
