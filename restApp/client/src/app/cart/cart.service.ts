@@ -1,7 +1,7 @@
 import { Injectable, computed, signal } from '@angular/core';
 import { Product } from '../products/product';
 import { CartItem } from './cart';
-import { FREE_DELIVERY, MAX_QTY, TAX } from '../constants';
+import { FREE_DELIVERY, MAX_QTY, TAX } from '../_constants';
 
 @Injectable({
   providedIn: 'root'

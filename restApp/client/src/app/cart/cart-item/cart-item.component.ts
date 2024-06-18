@@ -3,8 +3,8 @@ import { DecimalPipe, CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { CartService } from '../cart.service';
 import { CartItem } from '../cart';
-import { MAX_QTY } from '../../constants';
-import { IMGS_PRODUCTS_DIR } from '../../constants';
+import { MAX_QTY } from '../../_constants';
+import { IMGS_PRODUCTS_DIR } from '../../_constants';
 
 @Component({
   selector: 'app-cart-item',

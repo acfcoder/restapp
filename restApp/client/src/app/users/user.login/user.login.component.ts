@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-user.login',
@@ -8,5 +10,7 @@ import { Component } from '@angular/core';
   styles: ``
 })
 export class UserLoginComponent {
+  userService = inject(UserService);
+
 
 }

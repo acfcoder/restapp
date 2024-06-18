@@ -11,7 +11,8 @@
                 </div>
                 <div class="price">
                     @if (cartItem().quantity > 1) {
-                        {{ cartItem().quantity }} x {{ cartItem().product.price | number:'1.2-2'}}€<br>
+                        <span class="units-price">(
+                        {{ cartItem().quantity }} x {{ cartItem().product.price | number:'1.2-2'}}€ )&nbsp;&nbsp;</span>
                         {{ exPrice() | number:'1.2-2' }}€
                     } @else {
                         {{ cartItem().product.price | number:'1.2-2' }}€

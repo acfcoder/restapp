@@ -21,10 +21,12 @@ nav {
 
 h1 {
     font-weight: 700;
+    font-size: 1.6rem;
 }
 
-h1, h2 {
-    font-size: 1.6rem;
+h2 {
+    font-size: 1.4rem;
+    font-weight: 500;
 }
 
 p {
@@ -143,10 +145,16 @@ a.nav-link {
     flex-wrap: nowrap;
     justify-content: space-between;
     align-items: center;
+    font-weight: 500;
     img {
         padding-bottom: 4px;
-        width:38px;
+        width:2rem;
     }
+}
+
+a.nav-link.active {
+    color: $primary !important;
+    font-weight: 500;
 }
 
 .counter {
@@ -249,6 +257,9 @@ a.nav-link {
         text-align: end;
         padding-top: .8rem;
         align-self: right;
+    }
+    .units-price {
+        font-size: 1rem;
     }
 }
 

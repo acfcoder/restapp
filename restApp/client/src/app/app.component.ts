@@ -4,10 +4,13 @@ import { ProductsListComponent } from './products/admin/products-list/products-l
 import { CommonModule } from '@angular/common';
 import { CartService } from './cart/cart.service';
 
+import { httpInterceptorProviders } from './_helpers/http.interceptor';
+
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [RouterOutlet, ProductsListComponent, RouterLink, RouterLinkActive, CommonModule],
+  providers: [httpInterceptorProviders],
   templateUrl: 'app.component.html',
   styles: [],
 })
