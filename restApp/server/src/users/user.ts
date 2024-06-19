@@ -9,4 +9,5 @@ export interface User {
     role: "admin" | "customer";
     newsletter: boolean;
     _id?: mongodb.ObjectId;
+    
 }

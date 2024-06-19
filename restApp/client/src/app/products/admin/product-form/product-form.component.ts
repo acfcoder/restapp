@@ -1,5 +1,5 @@
 import { Component, effect, EventEmitter, input, Output, signal } from "@angular/core";
-import { FormBuilder, Validators, ReactiveFormsModule } from "@angular/forms";
+import { Validators, ReactiveFormsModule, FormBuilder } from "@angular/forms";
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatRadioModule } from '@angular/material/radio';
@@ -39,7 +39,7 @@ export class ProductFormComponent {
     @Output()
     uploadImage = new EventEmitter<File>();
 
-    productForm = this.formBuilder.group({
+    productForm = this.fb.group({
         name:  ['', [Validators.required, Validators.minLength(3)]],
         desc: ['', [Validators.required, Validators.minLength(5)]],
         l_desc: [''],
@@ -55,7 +55,7 @@ export class ProductFormComponent {
         tags: [['']],
     })
 
-    constructor(private formBuilder: FormBuilder, private productService: ProductService){
+    constructor(private fb: FormBuilder, private productService: ProductService){
         effect(() => {
             this.productForm.setValue({
                 name: this.initialState()?.name || '',

@@ -25,11 +25,11 @@ connectToDatabase(ATLAS_URI)
         app.use(express.static(path.join(__dirname)));
 
     // start the Express server
-        app.use("/products", productRouter );
-        app.use("/admin/products", productRouterAdmin);
-        app.use("/admin/orders", orderRouter);
-        app.use("/login", loginRouter);
-        app.use("/user/new", registerRouter);
+        app.use("/api/products", productRouter );
+        app.use("/api/admin/products", productRouterAdmin);
+        app.use("/api/admin/orders", orderRouter);
+        app.use("/api/login", loginRouter);
+        app.use("/api/user/new", registerRouter);
         app.listen(5300, () => {
             console.log(`Server running at http://localhost:5300...`);
         });

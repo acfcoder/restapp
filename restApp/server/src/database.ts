@@ -21,7 +21,7 @@ export async function connectToDatabase(uri: string) {
         await productApplySchemaValidation(db);
         await orderApplySchemaValidation(db);
 
-        const productsCollection = db.collection<Product>("products");
+        const productsCollection = db.collection<Product>("product");
         collections.products = productsCollection;
 
         const ordersCollection = db.collection<Order>("orders");

@@ -1,7 +1,10 @@
-
 export interface User {
-    user: string;
+    mail: string;
     pass: string;
-    role: string;
+    name: string;
+    phone: number;
+    address: string[];
+    role: "admin" | "customer";
+    newsletter: boolean;
     _id?: string;
 }
