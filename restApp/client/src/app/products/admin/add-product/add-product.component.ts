@@ -31,8 +31,6 @@ export class AddProductComponent {
   ){}
 
   addProduct(product: Product) {
-    console.log ('Esto es al pulsar submit: ', product);
-
     this.productService.createProduct(product).subscribe({
       next: () => {
         this.router.navigate(['/']);
@@ -47,7 +45,6 @@ export class AddProductComponent {
   }
 
   uploadImage(image: File) {
-    console.log ('Esto es lo que pasa con el upload Image: ', image);
     this.productService.updateImageProduct(image).subscribe({
       next: (response) => {
         const filename2 = this.productService.getFileName();

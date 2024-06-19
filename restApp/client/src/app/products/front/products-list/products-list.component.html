@@ -4,7 +4,7 @@
     @for(product of products(); track product._id) {
         <div class="product">
             <div class="row product__image">
-                <img src="http://localhost:5300/products/uploads/{{ product.img }}" alt="{{ product.name }}">
+                <img src="{{imgsProductsDir}}{{ product.img }}" alt="{{ product.name }}">
 
             </div>
             

@@ -34,7 +34,7 @@ export class ProductService {
   }
 
   getProduct(id: string) {
-    this.httpClient.get<Product>(`${this.url}/api/products/${id}`)
+    this.httpClient.get<Product>(`${this.url}/products/${id}`)
     .subscribe(product => {
       this.product$.set(product)
       return this.product$()
@@ -48,15 +48,15 @@ export class ProductService {
 
 
   createProduct(product: Product) {
-    return this.httpClient.post(`${this.url}/api/admin/products`, product, {responseType: 'text'});
+    return this.httpClient.post(`${this.url}/admin/products`, product, {responseType: 'text'});
   }
 
   updateProduct(id: string, product: Product) {
-    return this.httpClient.put(`${this.url}/api/admin/products/${id}`, product, {responseType: 'text'});
+    return this.httpClient.put(`${this.url}/admin/products/${id}`, product, {responseType: 'text'});
   }
 
   deleteProduct(id: string){
-    return this.httpClient.delete(`${this.url}/api/admin/products/${id}`, {responseType: 'text'});
+    return this.httpClient.delete(`${this.url}/admin/products/${id}`, {responseType: 'text'});
   }
 
   updateImageProduct(image: File): Observable<any> {

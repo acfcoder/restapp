@@ -27,7 +27,7 @@ connectToDatabase(ATLAS_URI)
 
     // start the Express server
         app.use("/api/products", productRouter );
-        app.use("/api/admin/products", productRouterAdmin);
+        app.use("/api/admin/products", verifyToken, productRouterAdmin);
         app.use("/api/admin/orders", orderRouter);
         app.use("/api/login", loginRouter);
         app.use("/api/user/new", registerRouter);

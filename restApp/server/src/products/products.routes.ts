@@ -4,6 +4,7 @@
     import multer from "multer";
     import path from "path";
     import fs from "fs";
+    import { verifyToken } from "../_middlewares/authToken";
 
 
     const MIMETYPES = ['image/jpg', 'image/png', 'image/jpeg'];
@@ -68,19 +69,20 @@
     });
 
     productRouterAdmin.post("/", async (req, res) => {
+        
         try {
-            const product = req.body;
-            const result = await collections?.products?.insertOne(product);
+                const product = req.body;
+                const result = await collections?.products?.insertOne(product);
 
-            if (result?.acknowledged) {
-                res.status(201).send(`Created a new product: ID ${result.insertedId}.`);
-            } else {
-                res.status(500).send("Failed to create a new product");
+                if (result?.acknowledged) {
+                    res.status(201).send(`Created a new product: ID ${result.insertedId}.`);
+                } else {
+                    res.status(500).send("Failed to create a new product");
+                }
+            } catch (error) {
+                console.error(error);
+                res.status(400).send (error instanceof Error ? error.message : 'Unknown error');
             }
-        } catch (error) {
-            console.error(error);
-            res.status(400).send (error instanceof Error ? error.message : 'Unknown error');
-        }        
     });
 
     productRouterAdmin.post("/upload", fileUploads.single('image'), async (req, res) => {

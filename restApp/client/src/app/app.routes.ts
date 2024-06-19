@@ -11,8 +11,8 @@ export const routes: Routes = [
     { path: 'home', component: HomeComponent },
     { path: 'cart', component: CartListComponent},
     { path: 'confirm', component: OrderConfirmComponent},
-    { path: 'products', component: ProductsListComponent, title: 'Product list'},
-    { path: 'products/new', component: AddProductComponent, title: 'Add Product'},
-    { path: 'products/edit/:id', component: EditProductComponent, title: 'Edit product'},
+    { path: 'admin/products', component: ProductsListComponent, title: 'Product list'},
+    { path: 'admin/products/new', component: AddProductComponent, title: 'Add Product'},
+    { path: 'admin/products/edit/:id', component: EditProductComponent, title: 'Edit product'},
     { path: '', redirectTo: 'home', pathMatch: 'full' }
 ];

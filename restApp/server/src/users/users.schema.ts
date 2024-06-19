@@ -3,9 +3,9 @@ import * as mongodb from "mongodb";
 export async function userApplySchemaValidation(db: mongodb.Db) {
     const userJsonSchema = {
         $jsonSchema: {
-            bson: "object",
+            bsonType: "object",
             required: ["name, mail, pass"],
-            addtionalProperties: true,
+            additionalProperties: true,
             properties: {
                 _id: {},
                 name: {
@@ -15,7 +15,6 @@ export async function userApplySchemaValidation(db: mongodb.Db) {
                 },
                 mail: {
                     bsonType: "string",
-                    unique: true
                 },
                 pass: {
                     bsonType: "string",

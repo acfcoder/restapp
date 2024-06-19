@@ -11,6 +11,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
 import { Product } from '../../product';
 import { CartService } from '../../../cart/cart.service';
+import { IMGS_PRODUCTS_DIR } from '../../../_constants';
 
 @Component({
   selector: 'app-f-products-list',
@@ -23,6 +24,7 @@ export class FProductsListComponent {
   errorMessage = '';
   productService = inject(ProductService);
   cartService = inject(CartService);
+  imgsProductsDir = IMGS_PRODUCTS_DIR;
 
   products = computed(() => {
     try {
