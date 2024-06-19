@@ -11,7 +11,7 @@ export async function userApplySchemaValidation(db: mongodb.Db) {
                 name: {
                     bsonType: "string",
                     description: "'name' is required and is a string",
-                    minLength: 5
+                    minLength: 3
                 },
                 mail: {
                     bsonType: "string",

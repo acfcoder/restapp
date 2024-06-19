@@ -9,11 +9,20 @@ interface JwtPayloadWithId extends jwt.JwtPayload {
     id: string;
 }
 
+declare global {
+    namespace Express {
+        interface Request {
+            userId?: string;
+            // ... otras propiedades del request
+        }
+    }
+}
+
 export const verifyToken = async (req: Request, res: Response, next: NextFunction) => {
     const tokenHeader = 'x-access-token';
     const token = req.headers[tokenHeader] as string;
 
-    if (!token) return res.status(403).json({ message: "No token provided" });
+    if (!token) return res.status(401).json({ message: "Unauthorized: Missing access token" });
 
     try {
         const decoded = jwt.verify(token, SECRET) as string | JwtPayloadWithId;
@@ -22,23 +31,18 @@ export const verifyToken = async (req: Request, res: Response, next: NextFunctio
             return res.status(403).json({ message: "Invalid token" });
         }
 
-        const userId = decoded.id;
+        req.userId = decoded.id;
 
         if(!collections.users) {
-            return res.status(404).json({ message: "Collection not initialized" });
+            return res.status(500).json({ message: "Internal server error: Database collection not initialized" });
         }
 
-
-        const user = await collections.users.findOne({_id: new ObjectId(userId)});
+        const user = await collections.users.findOne({_id: new ObjectId(req.userId) });
 
         if(!user) {
-            return res.status(404).json({ message: "User not found" });
+            return res.status(404).json({ message: "Not Found: User not associated with the request" });
         }
-
-        console.log(user.role);
-
-        const admin = user.role === 'admin' ? true : false;
-        //req.user = user;
+    
         next();
     
     } catch (err) {
@@ -46,3 +50,9 @@ export const verifyToken = async (req: Request, res: Response, next: NextFunctio
     }
 };
 
+export const isAdmin = async ( req: Request, res: Response, next: NextFunction) => {
+    const user = await collections?.users?.findOne({_id: new ObjectId(req.userId) });
+    const isAdmin = user?.role === 'admin' ? true : false;
+    
+    (isAdmin) ? next() : res.status(403).json({ message: 'Forbidden: User is not authorized for this resource' });
+}

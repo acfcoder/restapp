@@ -4,7 +4,7 @@ import { Order } from "./orders/order";
 import { User } from "./users/user";
 import { productApplySchemaValidation } from "./products/products.schema";
 import { orderApplySchemaValidation } from "./orders/orders.schema";
-import { userApplySchemaValidation } from "./users/users.schema";
+//import { userApplySchemaValidation } from "./users/users.schema";
 
 export const collections: {
     products?: mongodb.Collection<Product>;
@@ -21,7 +21,7 @@ export async function connectToDatabase(uri: string) {
         const db = client.db("restApp");
         await productApplySchemaValidation(db);
         await orderApplySchemaValidation(db);
-        await userApplySchemaValidation(db);
+        //await userApplySchemaValidation(db);
 
         collections.products = db.collection<Product>("product");
         collections.orders = db.collection<Order>("orders");

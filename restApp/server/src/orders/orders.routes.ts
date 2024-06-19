@@ -75,7 +75,7 @@ orderRouter.delete("/:id", async (req, res) => {
         if(result && result.deletedCount) {
             res.status(202).send(`Removed an order: ID ${id}`);
         } else if (!result) {
-            res.status(400).send(`Failed to remove an oreer: ID ${id}`);
+            res.status(400).send(`Failed to remove an order: ID ${id}`);
         } else if (!result.deletedCount) {
             res.status(404).send(`Failed to find an order: ID ${id}`);
         }

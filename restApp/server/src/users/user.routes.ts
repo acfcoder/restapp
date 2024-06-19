@@ -21,8 +21,7 @@ registerRouter.post('/', async (req, res) => {
         const checkMail = await collections.users?.findOne({mail: user.mail});
         
         if(checkMail) {
-            return res.status(400).send("Mail is already registered");
-            
+            return res.status(400).send("Mail is already registered");  
         }
 
         user.pass = bcrypt.hashSync(user.pass, 10);
