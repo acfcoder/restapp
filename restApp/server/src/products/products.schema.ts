@@ -70,9 +70,9 @@ export async function productApplySchemaValidation(db: mongodb.Db) {
         });
     } catch (error) {
         if (error instanceof mongodb.MongoServerError && error.  codeName  === "NamespaceNotFound") {
-            await db.createCollection("products", {validator: productJsonSchema})
+            await db.createCollection("product", {validator: productJsonSchema})
         } else {
-            console.error('Error in users schema validation:', error);
+            console.error('Error in product schema validation:', error);
         };
     }
 }

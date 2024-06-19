@@ -7,6 +7,7 @@ import { productRouterAdmin } from "./products/products.routes";
 import path from "path";
 import { orderRouter } from "./orders/orders.routes";
 import { registerRouter, loginRouter } from "./users/user.routes";
+import { verifyToken } from "./_middlewares/authToken";
 
 dotenv.config();
 

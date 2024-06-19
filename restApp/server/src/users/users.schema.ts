@@ -39,4 +39,17 @@ export async function userApplySchemaValidation(db: mongodb.Db) {
             }
         }
     }
+
+    try {
+        await db.command ({
+        collMod: "users",
+        validator: userJsonSchema
+        });
+    } catch (error) {
+        if (error instanceof mongodb.MongoServerError && error.  codeName  === "NamespaceNotFound") {
+            await db.createCollection("users", {validator: userJsonSchema})
+        } else {
+            console.error('Error in users schema validation:', error);
+        };
+    }
 }
