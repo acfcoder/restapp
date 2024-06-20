@@ -1,5 +1,8 @@
 @if(products$()) {
     <div class="container">
+        <button mat-raised-button color="primary" [routerLink]="['new']">
+            Añade un nuevo producto
+        </button>
 
     @for(product of products$(); track product._id) {
         <div class="container p-2 m-2 border">

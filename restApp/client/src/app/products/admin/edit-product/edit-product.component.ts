@@ -52,7 +52,7 @@ export class EditProductComponent {
       .updateProduct(this.product()._id || '', product)
       .subscribe({
         next: () => {
-          this.router.navigate(['/products']);
+          this.router.navigate(['/admin/products']);
         },
         error: (error) => {
           alert('Failed to update product');
@@ -62,7 +62,7 @@ export class EditProductComponent {
   }
 
   uploadImage(image: File) {
-    console.log ('Esto es lo que pasa con el upload Image: ', image);
+
     this.productService.updateImageProduct(image).subscribe({
       next: (response) => {
         const filename2 = this.productService.getFileName();

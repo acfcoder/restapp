@@ -33,7 +33,7 @@ export class AddProductComponent {
   addProduct(product: Product) {
     this.productService.createProduct(product).subscribe({
       next: () => {
-        this.router.navigate(['/']);
+        this.router.navigate(['/admin/products']);
       },
       error: (error) => {
         alert('Failed to create Product');

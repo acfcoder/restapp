@@ -1,15 +1,12 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @Component({
   selector: 'app-user.register',
   standalone: true,
-  imports: [],
-  template: `
-    <p>
-      user.register works!
-    </p>
-  `,
+  imports: [MatFormFieldModule],
+  templateUrl: 'user.register.component.html',
   styles: ``
 })
 export class UserRegisterComponent{
@@ -31,6 +28,28 @@ export class UserRegisterComponent{
   })
 
   constructor(private fb: FormBuilder) { };
+
+  submitForm() {
+
+    this.formSubmitted.emit(this.productForm.value as Product);
+}
+
+
+
+  getErrorMessage(controlName: string): string {
+    const control = this.registerForm.get(controlName);
+    if (control?.hasError('required')) {
+        return 'Este campo es obligatorio';
+    }
+    if (control?.hasError('minlength')) {
+        return `Debe tener al menos ${control.errors?.['minlength'].requiredLength} caracteres`;
+    }
+    if (control?.hasError('pattern')) {
+        return 'Formato no válido';
+    }
+    return '';
+}
+
 
 }
 

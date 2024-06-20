@@ -138,6 +138,7 @@
     });
 
     productRouterAdmin.put("/:id", async (req, res) => {
+        console.log(`server req: ${req.body}`);
         try {
             const id = req?.params?.id;
             const product = req.body;

@@ -52,6 +52,7 @@ export class ProductService {
   }
 
   updateProduct(id: string, product: Product) {
+    console.log(product);
     return this.httpClient.put(`${this.url}/admin/products/${id}`, product, {responseType: 'text'});
   }
 
@@ -62,7 +63,7 @@ export class ProductService {
   updateImageProduct(image: File): Observable<any> {
     const formData = new FormData();
     formData.append('image', image, image.name);
-    return this.httpClient.post<{filename: string}>(`${this.url}/api/admin/products/upload`, formData)
+    return this.httpClient.post<{filename: string}>(`${this.url}/admin/products/upload`, formData)
     .pipe(
       tap(response => this.fileNameSubject$.set(response.filename))
     )

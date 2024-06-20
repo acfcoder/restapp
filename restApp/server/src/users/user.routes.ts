@@ -38,8 +38,9 @@ registerRouter.post('/', async (req, res) => {
             
         const token = jwt.sign({id: result.insertedId}, SECRET, {
                     expiresIn: 86400});
-        console.log (token);
-    
+        
+
+
     } catch (error) {
         console.error(error);
         res.status(400).send (error instanceof Error ? error.message : "Unknown error" );
@@ -55,13 +56,16 @@ loginRouter.post('/', async (req, res) => {
         
         if (!userFound) {
             return res.status(400).send("User or pass are not correct"); 
-        } 
+        }; 
 
-        const eq = bcrypt.compareSync(req.body.pass, userFound.pass)
+        const eq = bcrypt.compareSync(req.body.pass, userFound.pass);
+      //  const maxExpiration = 30*24*60*60*100;
+
 
         if (!eq) {   
             return res.status(400).send("User or pass are not correct"); 
-        } 
+        }; 
+
         const token = jwt.sign({id: userFound._id},SECRET,{
             expiresIn: 86400
         })
