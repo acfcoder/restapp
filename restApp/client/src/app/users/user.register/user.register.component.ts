@@ -1,19 +1,30 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { UserService } from '../services/user.service';
+import { CommonModule } from '@angular/common';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { Signal } from '@angular/core';
 
 @Component({
   selector: 'app-user.register',
   standalone: true,
-  imports: [MatFormFieldModule],
+  imports: [MatFormFieldModule, ReactiveFormsModule, CommonModule, MatInputModule, MatButtonModule],
   templateUrl: 'user.register.component.html',
   styles: ``
 })
-export class UserRegisterComponent{
+
+export class UserRegisterComponent {
+
+  userService = inject(UserService);
+
+  constructor(private fb: FormBuilder) { };
+
 
   registerForm = this.fb.group({
     name: ['', [Validators.required, Validators.minLength(3)]],
-    phone: ['', [Validators.required, Validators.pattern("^[0-9]\d{9}")]],
+    phone: ['', [Validators.required]],
     mail: ['', [Validators.required, Validators.email]],
     pass: ['', [Validators.required, Validators.pattern("^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).{6,}$")]],
     address: [{
@@ -24,32 +35,45 @@ export class UserRegisterComponent{
       country: ['']
     }],
     role: ['customer'],
-    newsletter: [false],
+    newsletter: [false]
   })
 
-  constructor(private fb: FormBuilder) { };
-
-  submitForm() {
-
-    this.formSubmitted.emit(this.productForm.value as Product);
-}
 
 
+  get name() {
+    return this.registerForm.get('name');
+  }
+
+  get mail() {
+    return this.registerForm.get('mail');
+  }
+
+  get phone() {
+    return this.registerForm.get('phone');
+  }
+
+  get pass() {
+    return this.registerForm.get('pass');
+  } 
+  
+
+  async onSubmit() {
+    const response =  await this.userService.register(this.registerForm.value);
+    console.log()
+  }
 
   getErrorMessage(controlName: string): string {
-    const control = this.registerForm.get(controlName);
-    if (control?.hasError('required')) {
-        return 'Este campo es obligatorio';
-    }
-    if (control?.hasError('minlength')) {
-        return `Debe tener al menos ${control.errors?.['minlength'].requiredLength} caracteres`;
-    }
-    if (control?.hasError('pattern')) {
-        return 'Formato no válido';
-    }
-    return '';
-}
-
-
+      const control = this.registerForm.get(controlName);
+      if (control?.hasError('required')) {
+          return 'Este campo es obligatorio';
+      }
+      if (control?.hasError('minlength')) {
+          return `Debe tener al menos ${control.errors?.['minlength'].requiredLength} caracteres`;
+      }
+      if (control?.hasError('pattern')) {
+          return 'Formato no válido';
+      }
+      return '';
+  }
 }
 

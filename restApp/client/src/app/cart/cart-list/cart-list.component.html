@@ -1,9 +1,14 @@
+ <div class="container total">
+
 @if (cartItems().length>0){
-    <div class="container total">
+   
         <h1 class="bd">Resumen de tu pedido</h1>
-        @for(item of cartItems(); track item.product) {
+        <div class="products">
+             @for(item of cartItems(); track item.product) {
             <app-cart-item class="app-cart-item" [item]="item"></app-cart-item>
         }
+        </div>
+       
         <div class="totals">
             <app-cart-total></app-cart-total>
         </div>
@@ -16,6 +21,14 @@
             <textarea name="extra" id="extra"></textarea>
             <button type="button" class="btn" (click)="navigateToHome(true)">Quizás otro día</button>
         </div>
-    </div>
-}
+} @else {
+   
 
+    <div class="cart__options">
+        <button type="button" class="btn btn-big" (click)="navigateToHome(false)">Hacer un pedido</button>
+    </div>
+
+
+    
+}
+</div>

@@ -1,30 +1,44 @@
-<form [formGroup]="registerForm" (ngSubmit)="submitForm()">
-    <mat-form-field appearance="outline" class="col-12 col-md-7 mt-3 p-1">
-        <mat-label>Nombre</mat-label>
+
+<div class="container text-center">
+    <h1>Hola {{ registerForm.get('name')?.value  }}!</h1>
+    <h2>Encantados de conocerte</h2>
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="p-2">
+        <mat-form-field appearance="outline"  class="col-12 col-md-2 mt-2 "> 
+            <mat-label>Nombre</mat-label>
             <input matInput formControlName="name" required>
             <mat-error *ngIf="name?.invalid && (name?.dirty || name?.touched)">
-            {{ getErrorMessage('name') }}
-        </mat-error>
-    </mat-form-field>
+                {{ getErrorMessage('name') }}
+            </mat-error>
+        </mat-form-field>
 
-    <mat-form-field appearance="outline"  class="col-12 col-md-6">
-    <mat-label>Correo electronico</mat-label>
-        <textarea matInput formControlName="desc" required></textarea>
-        <mat-error *ngIf="desc?.invalid && (desc?.dirty || desc?.touched)">
-            {{ getErrorMessage('desc') }}
-        </mat-error>
-    </mat-form-field>
+        <mat-form-field appearance="outline"  class="col-12 col-md-2 mt-2"> 
+            <mat-label>Correo electrónico</mat-label>
+                <input type="email" matInput formControlName="mail" required>
+            <mat-error *ngIf="mail?.invalid && (mail?.dirty || mail?.touched)">
+                    {{ getErrorMessage('mail') }}
+            </mat-error>
+        </mat-form-field>
 
-    <mat-form-field appearance="outline"  class="col-12 col-md-6">
-        <mat-label>Descripcion larga</mat-label>
-        <textarea matInput formControlName="l_desc" ></textarea>
-    </mat-form-field>
+        <mat-form-field appearance="outline"  class="col-12 col-md-2 mt-2"> 
+            <mat-label>Teléfono</mat-label>
+            <input type="number" matInput formControlName="phone" required>
+            <mat-error *ngIf="phone?.invalid && (phone?.dirty || phone?.touched)">
+                {{ getErrorMessage('phone') }}
+            </mat-error>
+        </mat-form-field>    
 
-    <mat-form-field appearance="outline"  class="col-6 col-md-2 ">
-        <mat-label>Precio</mat-label>
-        <input type="number" matInput formControlName="price" required>
-        <mat-error *ngIf="price?.invalid && (price?.dirty || price?.touched)">
-            {{ getErrorMessage('price') }}
-        </mat-error>
-    </mat-form-field>
-</form>
+        <mat-form-field appearance="outline"  class="col-12 col-md-2 mt-2">    
+            <mat-label>Contraseña</mat-label>
+            <input type="text" matInput formControlName="pass" required>
+            <mat-error *ngIf="pass?.invalid && (pass?.dirty || pass?.touched)">
+                {{ getErrorMessage('pass') }}
+            </mat-error>
+
+        </mat-form-field>
+
+        <div class="buttons mt-2 col-12 text-end">
+            <button type="button" class="btn" type="submit" [disabled]="registerForm.invalid">Confirmar</button>
+        </div>
+
+    </form>
+</div>
