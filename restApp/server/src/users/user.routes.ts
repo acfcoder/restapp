@@ -50,7 +50,6 @@ registerRouter.post('/', async (req, res) => {
 });
 
 loginRouter.post('/', async (req, res) => {
-    console.log ('Esto es lo que recibe el server de login: ', req.body)
     try {
         const user = req.body;
         
@@ -71,7 +70,12 @@ loginRouter.post('/', async (req, res) => {
         const token = jwt.sign({id: userFound._id},SECRET,{
             expiresIn: 86400
         })
-        res.status(200).json(`Hello, again, ${userFound.name}, ${token}`);
+
+        console.log('login ok');
+        return res.status(200).json({
+                success: 'Login ok',
+                token: `${token}`
+            });
 
     } catch (error){
         console.error(error);
@@ -82,7 +86,7 @@ loginRouter.post('/', async (req, res) => {
 
 adminUsers.get('/', async (req, res) => {
     try {
-        const users = await collections?.users?.find({}).toArray();
+        const users = await collections.users?.find({}).toArray();
         res.status(200).send(users);
     } catch(error)
     {

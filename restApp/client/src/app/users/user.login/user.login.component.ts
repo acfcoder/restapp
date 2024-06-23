@@ -36,7 +36,10 @@ export class UserLoginComponent {
 
   async onSubmit() {
     const response = await this.userService.login(this.loginForm.value);
-    console.log (response);
+    console.log(response)
+      if(!response.error){
+        localStorage.setItem('access-token', response.token);
+      };
   }
 
 
