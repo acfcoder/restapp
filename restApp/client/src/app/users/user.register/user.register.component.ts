@@ -1,11 +1,11 @@
-import { Component, OnInit, inject, signal } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { UserService } from '../services/user.service';
 import { CommonModule } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import { Signal } from '@angular/core';
+
 
 @Component({
   selector: 'app-user.register',
@@ -24,7 +24,7 @@ export class UserRegisterComponent {
 
   registerForm = this.fb.group({
     name: ['', [Validators.required, Validators.minLength(3)]],
-    phone: ['', [Validators.required]],
+    phone: ['', Validators.required],
     mail: ['', [Validators.required, Validators.email]],
     pass: ['', [Validators.required, Validators.pattern("^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).{6,}$")]],
     address: [{
@@ -34,8 +34,8 @@ export class UserRegisterComponent {
       city:[''],
       country: ['']
     }],
-    role: ['customer'],
-    newsletter: [false]
+    role: 'customer',
+    newsletter: false
   })
 
 
@@ -59,7 +59,6 @@ export class UserRegisterComponent {
 
   async onSubmit() {
     const response =  await this.userService.register(this.registerForm.value);
-    console.log()
   }
 
   getErrorMessage(controlName: string): string {

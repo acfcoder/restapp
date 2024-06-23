@@ -1,0 +1,26 @@
+<div class="container text-center">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="p-2">
+
+        <mat-form-field appearance="outline"  class="col-12 col-md-2 mt-2"> 
+            <mat-label>Correo electrónico</mat-label>
+                <input type="email" matInput formControlName="mail" required>
+            <mat-error *ngIf="mail?.invalid && (mail?.dirty || mail?.touched)">
+                    {{ getErrorMessage('mail') }}
+            </mat-error>
+        </mat-form-field>
+        
+        <mat-form-field appearance="outline"  class="col-12 col-md-2 mt-2">    
+            <mat-label>Contraseña</mat-label>
+            <input type="text" matInput formControlName="pass" required>
+            <mat-error *ngIf="pass?.invalid && (pass?.dirty || pass?.touched)">
+                {{ getErrorMessage('pass') }}
+            </mat-error>
+
+        </mat-form-field>
+
+        <div class="buttons mt-2 col-12 text-end">
+            <button type="button" class="btn" type="submit" [disabled]="loginForm.invalid">Confirmar</button>
+        </div>
+
+    </form>
+</div>

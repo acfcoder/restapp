@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 
 
 
-const AUTH_API = 'http://localhost:5300/users/auth/';
+const baseUrl: string = 'http://localhost:5300/api/';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json'})
@@ -18,29 +18,35 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
-  login(email:string, pass: string): Observable<any>
+  login(mail: any, pass: any)
   {
-    return this.http.post( AUTH_API + 'signin', { 
-        email,
-        pass,
-      }, 
-        httpOptions
-    );
-  }
+    try{
+      return this.http.post( baseUrl + 'login', { 
+          mail,
+          pass
+        }, 
+          httpOptions
+        );
+      }
+    catch {
+      return console.log('Algun error en login authService');
+    }  
 
-  register(email: string, pass: string): Observable<any>
+    }
+    
+
+  register(formValue: any ): Observable<any>
   {
     return this.http.post( 
-      AUTH_API + 'signup',
+      baseUrl + 'user/register',
       {
-        email,
-        pass,
+        formValue
       },
       httpOptions
     );
   }
 
   logout():Observable<any>{
-    return this.http.post(AUTH_API + 'signout', {}, httpOptions);
+    return this.http.post(baseUrl + 'logout', {}, httpOptions);
   }
 }

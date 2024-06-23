@@ -21,7 +21,7 @@
 
         <mat-form-field appearance="outline"  class="col-12 col-md-2 mt-2"> 
             <mat-label>Teléfono</mat-label>
-            <input type="number" matInput formControlName="phone" required>
+            <input type="text" matInput formControlName="phone" required>
             <mat-error *ngIf="phone?.invalid && (phone?.dirty || phone?.touched)">
                 {{ getErrorMessage('phone') }}
             </mat-error>
