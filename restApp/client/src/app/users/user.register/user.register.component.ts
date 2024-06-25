@@ -8,7 +8,7 @@ import { MatButtonModule } from '@angular/material/button';
 
 
 @Component({
-  selector: 'app-user.register',
+  selector: 'app-user-register',
   standalone: true,
   imports: [MatFormFieldModule, ReactiveFormsModule, CommonModule, MatInputModule, MatButtonModule],
   templateUrl: 'user.register.component.html',

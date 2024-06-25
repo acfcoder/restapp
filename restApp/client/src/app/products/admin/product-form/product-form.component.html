@@ -47,7 +47,7 @@
             <img [src]="imgURL()" [alt]="name?.value || 'Product Image'">
         </div>    
     }
-    <input mat-raised-button color="primary" class="pt-2"
+    <input mat-fab color="primary" class="pt-2"
             type="file" id="image" name="image" accept="image/png, image/jpeg" formControlName="image" (change)="onNewImage($event)"/>
 
 

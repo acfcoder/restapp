@@ -45,7 +45,6 @@ export class CartItemComponent {
   plusQty() {
       let newQty = this.cartItem().quantity + 1;
       this.cartService.updateInCart(this.cartItem(), Number(newQty));
-      console.log (newQty)
   }
 
   minusQty() {
@@ -58,5 +57,7 @@ export class CartItemComponent {
     setTimeout (
       () =>  {this.cartService.removeFromCart(this.cartItem())}, 300);
   } 
+
+  
 
 }

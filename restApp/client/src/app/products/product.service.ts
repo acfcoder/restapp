@@ -13,6 +13,8 @@ export class ProductService {
   http = inject(HttpClient);
   products$ = signal<Product[]>([]);
   product$ = signal<Product>({} as Product);
+  searchTerm$ = signal<string>('');
+  resultFront$ = signal<Product[]>([]);
 
   fileNameSubject$ = signal<string>('');
 
@@ -21,16 +23,43 @@ export class ProductService {
 
   constructor(private httpClient: HttpClient) { }
 
-  private refreshProducts() {
+  private refreshProductsFront() {
+    this.searchTerm$.set('');
     this.httpClient.get<Product[]>(`${this.url}/products`)
     .subscribe(products => {
-      this.products$.set(products)
+      this.resultFront$.set(products);
+      this.onSearch();
     });
   }
 
+  private refreshProductsAdmin() {
+    this.httpClient.get<Product[]>(`${this.url}/products`)
+    .subscribe(products => {
+      const sorted = products
+        .sort((a, b) => a.pos - b.pos); // Ordenar por 'pos'
+      this.products$.set(sorted);
+    });
+  }
+
+  private onSearch (){
+    const searchTerm = this.searchTerm$().toLowerCase();
+    const searchResult = this.resultFront$()
+      .filter(product => product.available)
+      .filter(product => product.name.toLowerCase().includes(searchTerm))
+      .sort((a, b) => a.pos - b.pos); 
+    this.products$.set(searchResult); 
+  }
+
   getProducts() {
-    this.refreshProducts();
-    return this.products$()
+    this.refreshProductsFront();
+    this.onSearch();
+    return this.products$();
+  }
+
+
+  getProductsAdmin() {
+    this.refreshProductsAdmin();
+    return this.products$();
   }
 
   getProduct(id: string) {
@@ -71,6 +100,11 @@ export class ProductService {
 
   getFileName(){
     return this.fileNameSubject$();
+  }
+
+  setSearchTerm(term: string) {
+    this.searchTerm$.set(term);
+    this.onSearch(); 
   }
 
 }

@@ -3,7 +3,7 @@
         <li class="nav-item min-w-80">
             <a class="navbar-brand p-2"  [routerLink]="['/home']"
                 routerLinkActive="active">
-                <img src="assets/icons/logo_rus.png" alt="">
+                <img src="assets/icons/appbar.svg" alt="">
             </a>
         </li>
         <li class="nav-item min-w-80">
@@ -11,10 +11,7 @@
             [routerLink]="['/cart']"
             routerLinkActive="active"
             [routerLinkActiveOptions]="{ exact : true}">
-            <img class="" src="assets/icons/menu.png" alt="Pedido">
-            <!--<span class="badge bg-primary"
-                    *ngIf="cartCount()">{{cartCount()}}</span>
-            -->
+            <img class="" src="assets/icons/menu.svg" alt="Pedido">
             </a>
         </li>
     </ul>
@@ -31,13 +28,13 @@
             <a class="nav-link"
             [routerLink]="['/home']"
             routerLinkActive="active">
-            <img src="assets/icons/home.png" alt="Inicio">Inicio</a>
+            <img src="assets/icons/home.svg" alt="Inicio">Inicio</a>
         </li>
         <li class="nav-item min-w-80">
             <a class="nav-link"
             [routerLink]="['/contact']"
             routerLinkActive="active">
-            <img src="assets/icons/phone.png" alt="Contacto">Contacto</a>
+            <img src="assets/icons/phone.svg" alt="Contacto">Contacto</a>
         </li>
     
         <li class="nav-item min-w-80">
@@ -45,7 +42,7 @@
             [routerLink]="['/cart']"
             routerLinkActive="active"
             [routerLinkActiveOptions]="{ exact : true}">
-            <img src="assets/icons/cart.png" alt="Pedido">
+            <img src="assets/icons/cart.svg" alt="Pedido">
                 @if(cartCount()) {
                     <span class="counter">{{cartCount()}}</span>
                 }
@@ -57,7 +54,7 @@
             [routerLink]="['/register']"
             routerLinkActive="active"
             [routerLinkActiveOptions]="{ exact : true}">
-            <img class="clear" src="assets/icons/account.png" alt="Mi cuenta">Mi cuenta</a>
+            <img class="clear" src="assets/icons/account.svg" alt="Mi cuenta">Mi cuenta</a>
         </li>
         </ul>
 

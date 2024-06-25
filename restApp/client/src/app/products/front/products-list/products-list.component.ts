@@ -1,39 +1,38 @@
-import { Component, computed, inject } from '@angular/core';
+import { Component, OnInit, computed, WritableSignal, inject, signal } from '@angular/core';
 import { ProductService } from '../../product.service';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { MatTableModule } from '@angular/material/table';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
-import { MatTabsModule } from '@angular/material/tabs'
-import { MatRadioModule } from '@angular/material/radio';
 import { MatIconModule } from '@angular/material/icon';
-import { FormsModule } from '@angular/forms';
+
 import { Product } from '../../product';
 import { CartService } from '../../../cart/cart.service';
 import { IMGS_PRODUCTS_DIR } from '../../../_constants';
+import { ProductsSearchComponent } from '../../products-search/products-search.component';
+
 
 @Component({
   selector: 'app-f-products-list',
   standalone: true,
-  imports: [RouterModule, MatTableModule, MatButtonModule, MatCardModule, MatTabsModule, MatRadioModule, CommonModule, FormsModule, MatIconModule],
+  imports: [RouterModule, CommonModule, MatIconModule, ProductsSearchComponent],
   templateUrl: 'products-list.component.html',
-  styleUrl: 'products-list.component.scss'
+  styles: '',
 })
-export class FProductsListComponent {
+export class FProductsListComponent implements OnInit {
   errorMessage = '';
   productService = inject(ProductService);
   cartService = inject(CartService);
   imgsProductsDir = IMGS_PRODUCTS_DIR;
+  products$ = signal<Product[]>([]);
+  
+  ngOnInit() {
+    this.fetchProducts();
+  }
 
-  products = computed(() => {
-    try {
-      return this.productService.getProducts();
-    } catch (error) {
-      this.errorMessage = typeof error === 'string' ? error : 'Error';
-      return [];
-    }
-  });
+  private fetchProducts(): void {
+    this.products$ = this.productService.products$;
+    this.productService.getProducts();
+  }
+
   selectedProduct = this.productService.selectedProduct;
 
   onSelected(productName: string): void {
@@ -45,4 +44,5 @@ export class FProductsListComponent {
       this.cartService.addToCart(product);
     }
   }
+
 }

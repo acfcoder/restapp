@@ -1,7 +1,7 @@
-@if(products()) {
-    <div class="container container__products p-0 mb-80">
-
-    @for(product of products(); track product._id) {
+@if(products$()) {
+    <div class="container container__products p-0 mb-40">
+        <app-products-search></app-products-search>
+    @for(product of products$(); track product._id) {
         <div class="product">
             <div class="row product__image">
                 <img src="{{imgsProductsDir}}{{ product.img }}" alt="{{ product.name }}">
@@ -15,7 +15,7 @@
                 </div>
                 <div class="product__desc--2 text end">
                     <div class="cart-icon" (click)="addToCart(product)">
-                        <img src="assets/icons/cart.png" alt="">
+                        <img src="assets/icons/cart.svg" alt="">
                     </div>
                     <div class="product__desc--price">{{ product.price  | number:'1.2-2' }}€</div>
                 </div>

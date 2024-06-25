@@ -23,11 +23,15 @@ export class UserService {
       )
     };
 
-    login( formValue: any) {
+    logIn(formValue: any) {
       return firstValueFrom(
         this.httpClient.post<any>(`${this.baseUrl}login`, formValue)
       )
     };
+
+    logOut() {
+      
+    }
 
     private refreshUsers() {
       this.httpClient.get<User[]>(`${this.baseUrl}/admin/users`)

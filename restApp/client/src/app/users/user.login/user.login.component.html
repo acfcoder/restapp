@@ -1,9 +1,10 @@
-<div class="container text-center">
-    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="p-2">
+<div class="container box text-center" [ngClass]="{'remove':(toRegister), 'show, rotate':(!toRegister), 'hidden':(isHidden)}">
+    <h3 (click)="goToLogin()">Accede con tu cuenta</h3>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="p-2" >
 
         <mat-form-field appearance="outline"  class="col-12 col-md-2 mt-2"> 
-            <mat-label>Correo electrónico</mat-label>
-                <input type="email" matInput formControlName="mail" required>
+            <mat-label>Correo electrónico</mat-label> <input type="email" matInput formControlName="mail" required>
+               
             <mat-error *ngIf="mail?.invalid && (mail?.dirty || mail?.touched)">
                     {{ getErrorMessage('mail') }}
             </mat-error>
@@ -19,8 +20,19 @@
         </mat-form-field>
 
         <div class="buttons mt-2 col-12 text-end">
-            <button type="button" class="btn" type="submit" [disabled]="loginForm.invalid">Confirmar</button>
+            <button type="button" class="btn" type="submit" [disabled]="loginForm.invalid">Acceder</button>
         </div>
 
     </form>
+    <p (click)="goToRegister()">
+        o crea una nueva
+    </p>
+
+</div>
+<div class="container box text-center" [ngClass]="{'remove':(!toRegister), 'show, rotate':(toRegister), 'hidden':(!isHidden)}">
+    <h3 (click)="goToLogin()">Crea una nueva cuenta</h3>
+        <app-user-register></app-user-register>
+    <p class="link" (click)="goToLogin()">
+        o accede con tu cuenta
+    </p>
 </div>

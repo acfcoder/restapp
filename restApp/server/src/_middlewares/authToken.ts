@@ -19,9 +19,9 @@ declare global {
 }
 
 export const verifyToken = async (req: Request, res: Response, next: NextFunction) => {
-    console.log ('aqui el middleware');
+
     const tokenHeader = 'access-token';
-    const token = req.headers[tokenHeader] as string;
+    const token = req.header("Authorization");
 
     if (!token) return res.status(401).json({ message: "Unauthorized: Missing access token" });
 

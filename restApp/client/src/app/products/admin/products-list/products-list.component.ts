@@ -37,6 +37,6 @@ export class ProductsListComponent implements OnInit {
 
   private fetchProducts(): void {
     this.products$ = this.productService.products$;
-    this.productService.getProducts();
+    this.productService.getProductsAdmin();
   }
 }
