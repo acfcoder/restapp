@@ -8,6 +8,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { AuthService } from '../services/auth.service';
 import { UserRegisterComponent } from '../user.register/user.register.component';
+import { signal } from '@angular/core';
+import { User } from '../user';
 
 @Component({
   selector: 'app-user-login',
@@ -18,10 +20,13 @@ import { UserRegisterComponent } from '../user.register/user.register.component'
   styles: ``
 })
 export class UserLoginComponent {
-  userService = inject(UserService);
-  authService = inject(AuthService);
+  private userService = inject(UserService);
+  private authService = inject(AuthService);
   toRegister: boolean = false;
   isHidden: boolean = false;
+  logged: boolean = false;
+  user$ = signal<User | null>(null);
+  userName: string | null = null;
 
   constructor(private fb: FormBuilder){}
 
@@ -41,9 +46,16 @@ export class UserLoginComponent {
 
   async onSubmit() {
     const response = await this.userService.logIn(this.loginForm.value);
-    console.log(response)
+    console.log('Esta es la response ', response);
+  
       if(!response.error){
         localStorage.setItem('access-token', response.token);
+        if (response.success === "Login ok") {
+          this.logged = true; 
+          this.user$.set(response.user);
+          this.userName = this.user$()!.name;
+        }
+      
       };
   }
 

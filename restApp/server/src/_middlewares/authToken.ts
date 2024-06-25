@@ -18,10 +18,39 @@ declare global {
     }
 }
 
+
+export const checkToken = (req: Request, res: Response, next: NextFunction) => {
+    const authHeader = req.header("Authorization");
+
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+        return console.log('Not logged');
+    }
+
+    const token = authHeader.split(" ")[1];
+
+    try {
+        const decoded = jwt.verify(token, SECRET) as JwtPayloadWithId;
+
+        if (typeof decoded === 'string' || !('id' in decoded)) {
+            return console.log("Invalid token");
+        }
+
+        req.userId = decoded.id;
+
+    } catch (err) {
+        return console.log("Unauthorized: Invalid token" );
+    } 
+    next();
+};
+
 export const verifyToken = async (req: Request, res: Response, next: NextFunction) => {
 
-    const tokenHeader = 'access-token';
-    const token = req.header("Authorization");
+    const authHeader = req.header("Authorization");
+
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+        return console.log('Not logged');
+    }
+    const token = authHeader.split(" ")[1];
 
     if (!token) return res.status(401).json({ message: "Unauthorized: Missing access token" });
 

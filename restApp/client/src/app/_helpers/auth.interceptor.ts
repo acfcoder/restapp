@@ -4,14 +4,16 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   
   let clonedReq = req;
 
+  const token = localStorage.getItem('access-token');
+
   if (localStorage.getItem('access-token')){
     clonedReq = req.clone({
       setHeaders: {
-        Authorization: localStorage.getItem('access-token')!
+        Authorization: `Bearer ${token}`
       }
-    })
-      console.log ('Nueva cabecera enviada')
-    }
-
+    });
+  }
+  console.log ('send data');
+  console.log (clonedReq);
   return next(clonedReq);
 };

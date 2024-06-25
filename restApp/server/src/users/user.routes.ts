@@ -60,21 +60,23 @@ loginRouter.post('/', async (req, res) => {
         }; 
 
         const eq = bcrypt.compareSync(req.body.pass, userFound.pass);
-      //  const maxExpiration = 30*24*60*60*100;
-
+      //const maxExpiration = 30*24*60*60*100;
+        const userName: string = userFound.name;
+        console.log (userName);
 
         if (!eq) {   
             return res.status(400).json("User or pass are not correct"); 
         }; 
 
-        const token = jwt.sign({id: userFound._id},SECRET,{
+        const token = jwt.sign({id: userFound._id}, SECRET,{
             expiresIn: 86400
         })
 
         console.log('login ok');
         return res.status(200).json({
                 success: 'Login ok',
-                token: `${token}`
+                token: `${token}`,
+                user: userFound 
             });
 
     } catch (error){
@@ -82,6 +84,7 @@ loginRouter.post('/', async (req, res) => {
         res.status(400).json (error instanceof Error ? error.message : "Unknown error" );
     }
 })
+
 
 
 adminUsers.get('/', async (req, res) => {
@@ -94,3 +97,6 @@ adminUsers.get('/', async (req, res) => {
     };
 });
 
+logoutRouter.post('/', async(req, res) => {
+    
+})

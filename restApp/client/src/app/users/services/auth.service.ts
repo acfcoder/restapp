@@ -29,7 +29,7 @@ export class AuthService {
         );
       }
     catch {
-      return console.log('Algun error en login authService');
+      return console.log('Problem login authService');
     }  
 
     }
@@ -46,7 +46,11 @@ export class AuthService {
     );
   }
 
-  logout():Observable<any>{
-    return this.http.post(baseUrl + 'logout', {}, httpOptions);
+  logout() {
+    localStorage.removeItem('access-token');
+    return this.http.post( 
+      baseUrl + 'logout',
+      {},httpOptions
+    );
   }
 }

@@ -3,12 +3,13 @@ import { CartService } from '../cart.service';
 import { CommonModule } from '@angular/common';
 import { CartItemComponent } from '../cart-item/cart-item.component';
 import { CartTotalComponent } from '../cart-total/cart-total.component';
+import { MatRadioModule } from '@angular/material/radio';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cart-list',
   standalone: true,
-  imports: [CommonModule, CartItemComponent, CartTotalComponent],
+  imports: [CommonModule, CartItemComponent, CartTotalComponent, MatRadioModule],
   templateUrl: 'cart-list.component.html',
   styles: ``
 })

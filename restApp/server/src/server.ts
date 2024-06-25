@@ -7,7 +7,7 @@ import { productRouterAdmin } from "./products/products.routes";
 import path from "path";
 import { orderRouter } from "./orders/orders.routes";
 import { registerRouter, loginRouter, adminUsers } from "./users/user.routes";
-import { verifyToken, isAdmin } from "./_middlewares/authToken";
+import { checkToken, verifyToken, isAdmin } from "./_middlewares/authToken";
 
 dotenv.config();
 
@@ -26,7 +26,7 @@ connectToDatabase(ATLAS_URI)
         app.use(express.static(path.join(__dirname)));
 
     // start the Express server
-        app.use("/api/products", productRouter );
+        app.use("/api/products", checkToken, productRouter );
         app.use("/api/admin/products", verifyToken, productRouterAdmin);
         app.use("/api/admin/orders", [verifyToken, isAdmin], orderRouter);
         app.use("/api/login", loginRouter);

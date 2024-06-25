@@ -41,7 +41,5 @@ export class ProductsSearchComponent {
   onErase(): void{
     this.searchTerm = '';
     this.productService.setSearchTerm(this.searchTerm);
-    console.log(this.searchTerm);
-    console.log ('hello');
   }
 }
