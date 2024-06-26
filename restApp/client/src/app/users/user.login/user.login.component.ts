@@ -6,7 +6,8 @@ import { RouterLink } from '@angular/router';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { AuthService } from '../services/auth.service';
+import { MatIconModule } from '@angular/material/icon';
+import { AuthStateService } from '../services/auth.state.service';
 import { UserRegisterComponent } from '../user.register/user.register.component';
 import { signal } from '@angular/core';
 import { User } from '../user';
@@ -14,19 +15,19 @@ import { User } from '../user';
 @Component({
   selector: 'app-user-login',
   standalone: true,
-  imports: [MatFormFieldModule, ReactiveFormsModule, CommonModule, MatInputModule, MatButtonModule, RouterLink, UserRegisterComponent
+  imports: [MatFormFieldModule, ReactiveFormsModule, CommonModule, MatInputModule, MatButtonModule, RouterLink, UserRegisterComponent, MatIconModule
   ],
   templateUrl: 'user.login.component.html',
   styles: ``
 })
 export class UserLoginComponent {
   private userService = inject(UserService);
-  private authService = inject(AuthService);
+  private authStateService = inject(AuthStateService);
   toRegister: boolean = false;
   isHidden: boolean = false;
-  logged: boolean = false;
-  user$ = signal<User | null>(null);
-  userName: string | null = null;
+  logged$ = signal<boolean>(this.authStateService.logged$());
+  user$ = signal<User | null>(null); //revisar
+  userName$ = signal<string | undefined>(this.authStateService.userName$());
 
   constructor(private fb: FormBuilder){}
 
@@ -46,16 +47,16 @@ export class UserLoginComponent {
 
   async onSubmit() {
     const response = await this.userService.logIn(this.loginForm.value);
-    console.log('Esta es la response ', response);
   
       if(!response.error){
         localStorage.setItem('access-token', response.token);
         if (response.success === "Login ok") {
-          this.logged = true; 
-          this.user$.set(response.user);
-          this.userName = this.user$()!.name;
+          this.authStateService.setLoggedIn(true);
+          this.logged$.set(this.authStateService.logged$());
+          this.authStateService.setName(response.user.name)
+          this.userName$.set(this.authStateService.userName$());
         }
-      
+    
       };
   }
 
@@ -83,6 +84,6 @@ export class UserLoginComponent {
         return 'Este campo es obligatorio';
     }
     return '';
-}
+  }
 
 }

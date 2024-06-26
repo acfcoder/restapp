@@ -2,8 +2,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-
-
 const baseUrl: string = 'http://localhost:5300/api/';
 
 const httpOptions = {
@@ -15,42 +13,18 @@ const httpOptions = {
 })
 
 export class AuthService {
-
   constructor(private http: HttpClient) {}
 
-  login(mail: any, pass: any)
-  {
-    try{
-      return this.http.post( baseUrl + 'login', { 
-          mail,
-          pass
-        }, 
-          httpOptions
-        );
-      }
-    catch {
-      return console.log('Problem login authService');
-    }  
-
-    }
-    
-
-  register(formValue: any ): Observable<any>
-  {
-    return this.http.post( 
-      baseUrl + 'user/register',
-      {
-        formValue
-      },
-      httpOptions
-    );
+  login(mail: string, pass: string): Observable<any> {
+    return this.http.post(baseUrl + 'login', { mail, pass }, httpOptions);
   }
 
-  logout() {
+  register(formValue: any): Observable<any> {
+    return this.http.post(baseUrl + 'user/register', formValue, httpOptions);
+  }
+
+  logout(): Observable<any> {
     localStorage.removeItem('access-token');
-    return this.http.post( 
-      baseUrl + 'logout',
-      {},httpOptions
-    );
+    return this.http.post(baseUrl + 'logout', {}, httpOptions);
   }
 }

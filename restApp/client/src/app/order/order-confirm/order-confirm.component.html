@@ -1,8 +1,11 @@
 <div class="container">
+    @if (!logged$()) {
     <div class="confirm-order__who">
-        <h2>Ya casi terminamos...</h2>
+        <h2>Ya vamos acabando...</h2>
         <p>Si ya eres cliente, introduce tus datos de acceso. Si no lo eres, puedes seguir de manera anónima o registrarte en nuestra plataforma.</p>
         <app-user-login></app-user-login>
     </div>
-
+    } @else {
+            <h1>Hey, es genial verte de nuevo, {{ userName$() }}</h1>
+    }
 </div>

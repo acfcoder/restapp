@@ -1,4 +1,4 @@
-@if (!logged) {
+@if (!logged$()) {
     <div class="container box text-center" [ngClass]="{'remove':(toRegister), 'show, rotate':(!toRegister), 'hidden':(isHidden)}">
     
 
@@ -32,8 +32,12 @@
         </p>
         </div>    
     } @else {
-        <h1>Hey, es genial verte de nuevo, {{ userName }}</h1>
-
+        <div class="container">
+            <div class="greeting">
+                <mat-icon>sentiment_very_satisfied</mat-icon>
+                <h1>Hey! es genial verte de nuevo, {{ userName$() }}</h1>
+            </div>
+        </div>
     }
 
 <div class="container box text-center" [ngClass]="{'remove':(!toRegister), 'show, rotate':(toRegister), 'hidden':(!isHidden)}">
