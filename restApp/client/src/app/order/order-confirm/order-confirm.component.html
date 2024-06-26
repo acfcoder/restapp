@@ -1,11 +1,79 @@
-<div class="container">
+ @if ((order$().lines).length > 0) {
+    <div class="container">
     @if (!logged$()) {
-    <div class="confirm-order__who">
-        <h2>Ya vamos acabando...</h2>
-        <p>Si ya eres cliente, introduce tus datos de acceso. Si no lo eres, puedes seguir de manera anónima o registrarte en nuestra plataforma.</p>
-        <app-user-login></app-user-login>
+        <div class="confirm-order__who">
+            <h2>Ya vamos acabando...</h2>
+            <p>Si ya eres cliente, introduce tus datos de acceso. Si no lo eres, puedes seguir de manera anónima o registrarte en nuestra plataforma.</p>
+            <app-user-login></app-user-login>
+        </div>
+        } @else {
+            <h1>Un último vistazo, {{ userName$() }}</h1>
+            <p>Por favor, revísalo y terminamos:</p>
+            <table class="order-lines ">
+                <thead>
+                    <tr>
+                        <th scope="col"></th>
+                        <th scope="col">Concepto</th>
+                        <th scope="col">Cant</th>
+                        <th scope="col">Precio</th>
+                        <th class="text-center" scope="col">Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (item of order$().lines; let i = $index; track item.id) {
+                        <tr>
+                            <td>{{ i +1 }}&nbsp;&nbsp;</td>
+                            <td>{{ item.name }}</td>
+                            <td class="text-center">{{ item.quantity }}</td>
+                            <td class="text-center">{{ item.price | number:'1.2-2'}}€</td>
+                            <th class="text-end">{{ item.quantity * item.price | number:'1.2-2'}}€</th>
+                        </tr>
+                    }
+                        <tr>
+                            <td colspan="2" class="text-end">Subtotal</td>
+                            <td colspan="3" class="text-end">{{ order$().price | number:'1.2-2'}}€</td>
+                        </tr>
+                        @if (order$().delivered) {
+                        <tr>
+                            <td colspan="2" class="text-end">Envio</td>
+                            <td colspan="3" class="text-end">{{ order$().deliveredCost | number:'1.2-2' }}€</td>
+                        </tr>
+                        }
+                        <tr>
+                            <td colspan="2" class="text-end">IVA (10%)</td>
+                            <td colspan="3" class="text-end">{{ order$().tax | number:'1.2-2'}}€</td>
+                        </tr>
+                        <tr>
+                            <th colspan="2" class="text-end">Total</th>
+                            <th colspan="3" class="text-end">{{ order$().total | number:'1.2-2'}}€</th>
+                        </tr>
+                </tbody>
+            </table>
+            <hr>
+            @if (!order$().delivered) {
+                <p>Has elegido la <b>recogida en el local</b>. <br>
+                Lo tendrás preparado cuando llegues.</p>
+            } @else {
+                <p>Has pedido que <b>te lo llevemos</b>.<br>
+                Tardamos un poco, pero llegamos.</p>
+            }
+            <hr>
+            <p>Si crees que hay algo que debamos saber, por favor, escríbelo a continuación.</p>
+            <textarea matInput controlFormName="extra" class="col-12"></textarea>
+            <mat-checkbox> He leído y acepto las <a>condiciones de venta</a>.</mat-checkbox>
+
+            <button type="button" class="btn btn-big" (click)="onPay()">PAGAR<mat-icon matSuffix>sentiment_very_satisfied</mat-icon></button>
+
+            <button type="button" class="btn" (click)="navigateToCart()">Modificar el pedido</button>
+        } 
     </div>
-    } @else {
-            <h1>Hey, es genial verte de nuevo, {{ userName$() }}</h1>
+    } @else 
+    {
+        <div class="cover">
+            <img class="cover__img" src="../../../assets/icons/empty.png" alt="">
+            <h2 class="handwrite">No tienes nada en la cesta :(</h2>
+    
+        </div>
     }
-</div>
+
+

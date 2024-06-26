@@ -1,8 +1,10 @@
-import * as mongodb from "mongodb";
-import { Lines } from "./lines";
-
 export interface Order {
-    lines: string[];
+    lines: {
+        id: string,
+        name: string,
+        price: number;
+        quantity: number;
+    }[]; 
     user: string;
     price: number;
     tax: number;
@@ -11,6 +13,7 @@ export interface Order {
     status: "waiting" | "accepted" | "rejected";
     paid: boolean;
     delivered: boolean;
+    deliveredCost: number | string;
     extra: string;
-    _id?: mongodb.ObjectId;
+    _id?: string;
 }

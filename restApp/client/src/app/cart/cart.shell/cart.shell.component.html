@@ -1,0 +1,42 @@
+<div class="container total">
+
+    @if (cartItems().length > 0) {
+    <app-cart-list></app-cart-list>
+    <div class="totals">
+        <app-cart-total></app-cart-total>
+    </div>
+
+    <div class="cart__options">
+        <form>
+            <div class="confirm-order__when">
+                    <h2>¿Cuándo lo quieres?</h2>
+                <mat-radio-group formControlName="when"  >
+                    <mat-radio-button value="now">Lo antes posible</mat-radio-button>
+                    <mat-radio-button value="after">o dentro de un rato</mat-radio-button>
+                </mat-radio-group>
+            </div>
+        
+            <div class="confirm-order__how">
+                <h2>¿Vienes o vamos?</h2>
+                <mat-radio-group  formControlName="how">
+                    <mat-radio-button value="now">Ya voy yo</mat-radio-button>
+                    <mat-radio-button value="after">Mejor me lo acercáis(+4.50€)</mat-radio-button>
+                </mat-radio-group>
+            </div>
+
+            <button type="button" class="btn btn-big" (click)="onSubmit()">Confirmar<mat-icon matSuffix>sentiment_very_satisfied</mat-icon></button>
+            <button type="button" class="btn" (click)="navigateToHome(false)">Quiero algo más</button>
+        </form>
+            
+            <button type="button" class="btn" (click)="navigateToHome(true)">Quizás otro día</button>
+    
+    </div>
+
+    } @else {
+        <div class="cart__options">
+                <button type="button" class="btn btn-big" (click)="navigateToHome(false)">Hacer un pedido</button>
+        </div>
+    } 
+</div>
+
+

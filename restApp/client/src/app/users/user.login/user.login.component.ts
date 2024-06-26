@@ -26,8 +26,7 @@ export class UserLoginComponent {
   toRegister: boolean = false;
   isHidden: boolean = false;
   logged$ = signal<boolean>(this.authStateService.logged$());
-  user$ = signal<User | null>(null); //revisar
-  userName$ = signal<string | undefined>(this.authStateService.userName$());
+  userName$ = signal<string>(this.authStateService.userName$());
 
   constructor(private fb: FormBuilder){}
 
@@ -51,10 +50,14 @@ export class UserLoginComponent {
       if(!response.error){
         localStorage.setItem('access-token', response.token);
         if (response.success === "Login ok") {
+
           this.authStateService.setLoggedIn(true);
           this.logged$.set(this.authStateService.logged$());
+
           this.authStateService.setName(response.user.name)
           this.userName$.set(this.authStateService.userName$());
+          
+          this.authStateService.setId(response.user._id);
         }
     
       };

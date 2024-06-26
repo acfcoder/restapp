@@ -25,7 +25,7 @@ export class CartService {
   taxQ = computed(() => Math.round(this.subTotal() * this.tax ) / 100);
 
   // Total price
-  totalPrice = computed(() => this.subTotal() + this.delivery() + this.tax); 
+  totalPrice = computed(() => this.subTotal() + this.delivery() + this.taxQ()); 
 
   // Add to cart
   addToCart(product: Product): void {

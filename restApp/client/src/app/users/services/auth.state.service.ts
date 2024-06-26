@@ -8,16 +8,20 @@ import { signal } from '@angular/core';
 
 export class AuthStateService {
     logged$ = signal<boolean>(false);
-    userName$ = signal<string | undefined>('');
+    userName$ = signal<string>('');
+    idUser$ = signal<string>('Anonymous')
 
     setLoggedIn(isLoggedIn: boolean) {
         this.logged$.set(isLoggedIn);
-        console.log (this.logged$());
     }
     
-    setName(userName: string | undefined) {
+    setName(userName: string) {
         this.userName$.set(userName);
-        console.log(this.userName$());
     } 
+
+    setId(userId: string) {
+        this.idUser$.set(userId)
+        console.log(this.idUser$())
+    }
 
 }

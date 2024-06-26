@@ -42,17 +42,17 @@ export class ProductFormComponent {
     productForm = this.fb.group({
         name:  ['', [Validators.required, Validators.minLength(3)]],
         desc: ['', [Validators.required, Validators.minLength(5)]],
-        l_desc: [''],
+        l_desc: '',
         price: [ 0 , [Validators.required, Validators.pattern("^[0-9]+(\\.[0-9]{1,2})*$")]],
-        category: [0],
+        category: 0,
         img: ['no-image.svg'],
         pos: [0, [Validators.pattern("^[0-9]*$")]],
-        available: [true],
-        time: [0], // preparation time
-        excl: [0], // percentage of exclusivity
-        allergens: [[0]],
-        image: [''],
-        tags: [['']],
+        available: true,
+        time: 0, // preparation time
+        excl: 0, // percentage of exclusivity
+        allergens: this.fb.array([]),
+        image: '',
+        tags: this.fb.array([]),
     })
 
     constructor(private fb: FormBuilder, private productService: ProductService){
@@ -62,7 +62,7 @@ export class ProductFormComponent {
                 desc: this.initialState()?.desc || '',
                 l_desc: this.initialState()?.l_desc || '',
                 price: this.initialState()?.price || null,
-                category:  this.initialState()?.category || 0,
+                category: this.initialState()?.category || 0,
                 img: this.initialState()?.img || 'no-image.svg',
                 pos: this.initialState()?.pos || 0,
                 available: this.initialState()?.available || true,
@@ -121,7 +121,6 @@ export class ProductFormComponent {
     get tags() {
         return this.productForm.get('tags')
     }
-
 
     onNewImage($event: any): void {
         const [ file ] = $event.target.files;

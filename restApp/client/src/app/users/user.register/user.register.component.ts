@@ -26,7 +26,7 @@ export class UserRegisterComponent {
     name: ['', [Validators.required, Validators.minLength(3)]],
     phone: ['', Validators.required],
     mail: ['', [Validators.required, Validators.email]],
-    pass: ['', [Validators.required, Validators.pattern("^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).{6,}$")]],
+    pass: ['', [Validators.required, Validators.pattern("(?=.*[A-Z])(?=.*[a-z])(?=.*\d).{6,}$")]],
     address: [{
       street_address_1: [''],
       street_address_2: [''],

@@ -7,11 +7,12 @@ import { CartListComponent } from './cart/cart-list/cart-list.component';
 import { OrderConfirmComponent } from './order/order-confirm/order-confirm.component';
 import { UserRegisterComponent } from './users/user.register/user.register.component';
 import { UserLoginComponent } from './users/user.login/user.login.component';
+import { CartShellComponent } from './cart/cart.shell/cart.shell.component';
 
 
 export const routes: Routes = [
     { path: 'home', component: HomeComponent },
-    { path: 'cart', component: CartListComponent},
+    { path: 'cart', component: CartShellComponent},
     { path: 'confirm', component: OrderConfirmComponent},
     { path: 'register', component: UserRegisterComponent},
     { path: 'login', component: UserLoginComponent},

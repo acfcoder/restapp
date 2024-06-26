@@ -18,29 +18,27 @@ declare global {
     }
 }
 
-
 export const checkToken = (req: Request, res: Response, next: NextFunction) => {
     const authHeader = req.header("Authorization");
-
-    if (!authHeader || !authHeader.startsWith("Bearer ")) {
-        return console.log('Not logged');
-    }
-
-    const token = authHeader.split(" ")[1];
-
+    
     try {
-        const decoded = jwt.verify(token, SECRET) as JwtPayloadWithId;
+        if (!authHeader || !authHeader.startsWith("Bearer ")) {
+            console.log('Not logged');
+        } else {
+            const token = authHeader.split(" ")[1];
+            const decoded = jwt.verify(token, SECRET) as JwtPayloadWithId;
 
-        if (typeof decoded === 'string' || !('id' in decoded)) {
-            return console.log("Invalid token");
+            if (typeof decoded === 'string' || !('id' in decoded)) {
+                console.log("Invalid token");
+            } else {
+                req.userId = decoded.id;
+            }
         }
-
-        req.userId = decoded.id;
-
     } catch (err) {
-        return console.log("Unauthorized: Invalid token" );
-    } 
-    next();
+        console.log("Unauthorized: Invalid token" );
+    } finally {
+        next(); // Continúa con la siguiente función middleware o ruta
+    }
 };
 
 export const verifyToken = async (req: Request, res: Response, next: NextFunction) => {

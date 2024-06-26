@@ -31,6 +31,7 @@ orderRouter.get("/:id", async (req, res) => {
 });
 
 orderRouter.post ("/", async (req, res) =>{
+    console.log('Trying save order in server ...');
     try {
         const order = req.body;
         const result = await collections?.orders?.insertOne(order);
@@ -43,7 +44,6 @@ orderRouter.post ("/", async (req, res) =>{
     } catch(error) {
         res.status(400).send(error instanceof Error ? error.message: "Unknown error");
     }
-
 });
 
 orderRouter.put("/:id", async (req, res) => {
