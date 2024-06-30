@@ -1,9 +1,9 @@
- @if ((order$().lines).length > 0) {
+@if ((order$().lines).length > 0) {
     <div class="container">
     @if (!logged$()) {
         <div class="confirm-order__who">
             <h2>Ya vamos acabando...</h2>
-            <p>Si ya eres cliente, introduce tus datos de acceso. Si no lo eres, puedes seguir de manera anónima o registrarte en nuestra plataforma.</p>
+            <p>Si ya eres cliente, introduce tus datos de acceso. Si no lo eres, puedes registrarte en nuestra plataforma.</p>
             <app-user-login></app-user-login>
         </div>
         } @else {
@@ -62,8 +62,8 @@
             <textarea matInput controlFormName="extra" class="col-12"></textarea>
             <mat-checkbox> He leído y acepto las <a>condiciones de venta</a>.</mat-checkbox>
 
-            <button type="button" class="btn btn-big" (click)="onPay()">PAGAR<mat-icon matSuffix>sentiment_very_satisfied</mat-icon></button>
-
+            <button type="button" class="btn btn-big" (click)="onPay()">PAGAR<mat-icon matSuffix class="to-button">credit_card</mat-icon></button>
+            <br>
             <button type="button" class="btn" (click)="navigateToCart()">Modificar el pedido</button>
         } 
     </div>
@@ -72,8 +72,11 @@
         <div class="cover">
             <img class="cover__img" src="../../../assets/icons/empty.png" alt="">
             <h2 class="handwrite">No tienes nada en la cesta :(</h2>
-    
         </div>
+        <div class="cart__options">
+            <button type="button" class="btn btn-big" (click)="navigateToHome(false)">Hacer un pedido</button>
+        </div>
+
     }
 
 

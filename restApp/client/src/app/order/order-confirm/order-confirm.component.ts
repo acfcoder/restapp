@@ -37,6 +37,7 @@ export class OrderConfirmComponent {
       response => {
         console.log('Orden guardada exitosamente:', response);
         // Aquí puedes navegar a otra página, mostrar un mensaje de éxito, etc.
+        this.router.navigate(['/success']);
       },
       error => {
         console.error('Error al guardar la orden:', error);
@@ -49,5 +50,10 @@ export class OrderConfirmComponent {
   navigateToCart() {
     this.router.navigate(['/cart'])
   }
+
+  navigateToHome(value: boolean) {
+    this.router.navigate(['/home']);
+  }
+
   
 }

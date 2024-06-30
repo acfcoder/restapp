@@ -8,12 +8,14 @@ import { OrderConfirmComponent } from './order/order-confirm/order-confirm.compo
 import { UserRegisterComponent } from './users/user.register/user.register.component';
 import { UserLoginComponent } from './users/user.login/user.login.component';
 import { CartShellComponent } from './cart/cart.shell/cart.shell.component';
+import { OrderSuccessComponent } from './order/order-success/order-success.component';
 
 
 export const routes: Routes = [
     { path: 'home', component: HomeComponent },
     { path: 'cart', component: CartShellComponent},
     { path: 'confirm', component: OrderConfirmComponent},
+    { path: 'success', component: OrderSuccessComponent},
     { path: 'register', component: UserRegisterComponent},
     { path: 'login', component: UserLoginComponent},
     { path: 'admin/products', component: ProductsListComponent, title: 'Product list'},

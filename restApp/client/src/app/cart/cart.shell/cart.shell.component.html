@@ -2,6 +2,9 @@
 
     @if (cartItems().length > 0) {
     <app-cart-list></app-cart-list>
+    <div class="cart__options">
+        <button type="button" class="btn" (click)="navigateToHome(false)">Quiero algo más</button>
+    </div>    
     <div class="totals">
         <app-cart-total></app-cart-total>
     </div>
@@ -24,15 +27,19 @@
                 </mat-radio-group>
             </div>
 
-            <button type="button" class="btn btn-big" (click)="onSubmit()">Confirmar<mat-icon matSuffix>sentiment_very_satisfied</mat-icon></button>
-            <button type="button" class="btn" (click)="navigateToHome(false)">Quiero algo más</button>
+            <button type="button" class="btn btn-big" (click)="onSubmit()">Confirmar<mat-icon matSuffix>check</mat-icon></button>
         </form>
-            
+            <br>
+            <br>
             <button type="button" class="btn" (click)="navigateToHome(true)">Quizás otro día</button>
     
     </div>
 
     } @else {
+        <div class="cover" style >
+            <img class="cover__img" src="../../../assets/icons/empty.png" alt="">
+            <h2 class="handwrite">No tienes nada en la cesta :(</h2>
+        </div>
         <div class="cart__options">
                 <button type="button" class="btn btn-big" (click)="navigateToHome(false)">Hacer un pedido</button>
         </div>

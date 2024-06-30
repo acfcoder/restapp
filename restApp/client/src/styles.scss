@@ -37,6 +37,11 @@ nav {
     background-color: white;
 }
 
+nav.nav-top{
+    height: 80px!important;
+    z-index: 400;
+}
+
 h1 {
     font-weight: 600;
     font-size: 2rem;
@@ -59,13 +64,21 @@ p {
     //font-family: "Reenie Beanie", cursive, sans-serif !important;
     color: $primary;
     text-align: center;
-    margin: 2.5rem auto 3rem;
+    margin: 2.5rem auto 2rem;
     font-size: 3rem;
     font-weight: 600;
     line-height: 2.3rem;
     width: 80%;
-
 }
+
+.handwrite > .mini {
+    margin-bottom: 1rem;
+}
+
+.mini {
+        font-size: 2.5rem !important;
+        margin-top: 1rem !important;
+    }
 
 .box {
     border: 2px solid $primary;
@@ -125,6 +138,11 @@ p {
         width: 1rem;
         height: auto;
     }
+}
+
+mat-icon {
+    padding: 0.25rem 0;
+    margin-left: 0.8rem;
 }
 
 .class-item__qty--selector {
@@ -442,6 +460,11 @@ a.nav-link.active {
     textarea {
         width: 100%; 
     }
+    h3 {
+        text-align: center;
+        max-width: 80%;
+        margin: 1rem auto;
+    }
 }
 
 .remove {
@@ -510,6 +533,28 @@ a.nav-link.active {
     }
 }
 
+.form-error {
+    animation: animate-error (0.5s);
+    border-color: $secondary;
+}
+
+@keyframes animate-error {
+    0% {
+        transform: translateX(0);
+    }
+    25% {
+        transform: translateX(-1rem);
+    }
+    50% {
+        transform: translateX(1rem);
+    }
+    75% {
+        transform: translateX(-1rem);
+    }
+    100% {
+        transform: translateX(0);
+    }
+  }
 // ---- Order Confirm ---- // 
 
 .order-lines {
@@ -520,15 +565,18 @@ a.nav-link.active {
     display: block;
     width: 100vw;
     margin: 0;
-    padding: 0 1rem;
+    padding: 0;
     position: relative;
-    top: 1rem;
-    left: 0;
+    top: -110px;
+    left: -0.8rem;
     img {
         width: 100vw;
         height: auto;
-        left: -1rem;
     }   
+}
+
+.container.total > .cover {
+    left: 0;
 }
 
 // --- Media Queries --- //

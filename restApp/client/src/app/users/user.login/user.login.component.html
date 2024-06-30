@@ -1,5 +1,5 @@
 @if (!logged$()) {
-    <div class="container box text-center" [ngClass]="{'remove':(toRegister), 'show, rotate':(!toRegister), 'hidden':(isHidden)}">
+    <div class="container box text-center" [ngClass]="{'remove':(toRegister), 'show  rotate':(!toRegister), 'hidden':(isHidden), 'form-error':(formError)}">
     
 
         <h3 (click)="goToLogin()">Accede con tu cuenta</h3>

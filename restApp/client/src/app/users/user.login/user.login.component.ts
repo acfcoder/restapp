@@ -23,6 +23,8 @@ import { User } from '../user';
 export class UserLoginComponent {
   private userService = inject(UserService);
   private authStateService = inject(AuthStateService);
+  
+  formError: boolean = false;
   toRegister: boolean = false;
   isHidden: boolean = false;
   logged$ = signal<boolean>(this.authStateService.logged$());
@@ -48,6 +50,7 @@ export class UserLoginComponent {
     const response = await this.userService.logIn(this.loginForm.value);
   
       if(!response.error){
+        this.formError = false;
         localStorage.setItem('access-token', response.token);
         if (response.success === "Login ok") {
 
@@ -58,10 +61,11 @@ export class UserLoginComponent {
           this.userName$.set(this.authStateService.userName$());
           
           this.authStateService.setId(response.user._id);
-        }
+        }else {
+          this.formError = true;
     
-      };
-  }
+      }
+  }}
 
   goToLogin() {
     this.toRegister= false;
